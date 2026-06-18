@@ -57,7 +57,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 1.0, ease: "easeOut" }}
-          className="flex items-center justify-center w-full px-4 sm:px-8 md:px-16 mt-[-45px] md:mt-[-65px] z-30"
+          className="flex items-center justify-center w-full px-4 sm:px-8 md:px-16 mt-4 md:mt-6 z-30"
         >
           {/* Custom SVG Stencil Typo path rendering with thick white strokes for bold premium look */}
           <svg 

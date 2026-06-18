@@ -1,62 +1,58 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import MistBackground from "@/components/ui/mist-background";
+import Lenis from "lenis";
+
+const useMorphingText = (texts: string[], scrollProgress: number) => {
+  const text1Ref = useRef<HTMLSpanElement>(null);
+  const text2Ref = useRef<HTMLSpanElement>(null);
+
+  const setStyles = useCallback(
+    (fraction: number) => {
+      const [current1, current2] = [text1Ref.current, text2Ref.current];
+      if (!current1 || !current2 || !texts || texts.length === 0) return;
+
+      // FIX: Keep blur amounts dynamically sharp and optimized to prevent fuzzy text artifacts
+      current2.style.filter = `blur(${Math.min(4 / fraction - 4, 12)}px)`;
+      current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+      const invertedFraction = 1 - fraction;
+      current1.style.filter = `blur(${Math.min(4 / invertedFraction - 4, 12)}px)`;
+      current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
+
+      current1.textContent = texts[0];
+      current2.textContent = texts[1];
+    },
+    [texts],
+  );
+
+  useEffect(() => {
+    setStyles(scrollProgress);
+  }, [scrollProgress, setStyles]);
+
+  return { text1Ref, text2Ref };
+};
 
 interface ScrollMorphingTextProps {
   texts: string[];
+  scrollProgress: number;
 }
 
-const ScrollMorphingText: React.FC<ScrollMorphingTextProps> = ({ texts }) => {
-  const text1Ref = useRef<HTMLSpanElement>(null);
-  const text2Ref = useRef<HTMLSpanElement>(null);
-  
-  // Track window scroll progress
-  const { scrollYProgress } = useScroll();
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Map scroll progress (0 to 0.7) to the morph fraction (0 to 1) so it finishes morphing before the absolute bottom
-    const fraction = Math.min(latest / 0.7, 1);
-    const [current1, current2] = [text1Ref.current, text2Ref.current];
-    if (!current1 || !current2) return;
-
-    current1.textContent = texts[0];
-    current2.textContent = texts[1];
-
-    if (fraction <= 0) {
-      current1.style.filter = "none";
-      current1.style.opacity = "100%";
-      current2.style.filter = "none";
-      current2.style.opacity = "0%";
-      return;
-    }
-    if (fraction >= 1) {
-      current1.style.filter = "none";
-      current1.style.opacity = "0%";
-      current2.style.filter = "none";
-      current2.style.opacity = "100%";
-      return;
-    }
-
-    current2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-    const invertedFraction = 1 - fraction;
-    current1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
-    current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
-  });
+const ScrollMorphingText: React.FC<ScrollMorphingTextProps> = ({ texts, scrollProgress }) => {
+  const { text1Ref, text2Ref } = useMorphingText(texts, scrollProgress);
 
   return (
-    <div className="relative mx-auto w-full max-w-5xl h-24 md:h-36 lg:h-44 text-center [filter:url(#threshold)_blur(0.6px)] mt-12 md:mt-16 z-30">
+    <div className="relative mx-auto w-full max-w-5xl h-24 md:h-36 lg:h-44 text-center [filter:url(#threshold)_blur(0.4px)] transform-gpu z-30">
       <span 
-        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-4xl md:text-6xl lg:text-7xl font-sans font-black tracking-[0.5em] text-white uppercase text-center select-none pointer-events-none" 
+        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-4xl md:text-6xl lg:text-7xl font-sans font-black tracking-[0.5em] text-white uppercase text-center select-none pointer-events-none transform-gpu antialiased subpixel-antialiased" 
         ref={text1Ref}
       >
         {texts[0]}
       </span>
       <span 
-        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-wide text-center text-white max-w-4xl md:max-w-5xl mx-auto font-medium px-4 leading-relaxed select-none pointer-events-none" 
+        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-wide text-center text-white max-w-4xl md:max-w-5xl mx-auto font-medium px-4 leading-relaxed select-none pointer-events-none transform-gpu antialiased subpixel-antialiased" 
         ref={text2Ref}
         style={{ 
           opacity: 0,
@@ -77,7 +73,7 @@ const ScrollMorphingText: React.FC<ScrollMorphingTextProps> = ({ texts }) => {
               values="1 0 0 0 0
                       0 1 0 0 0
                       0 0 1 0 0
-                      0 0 0 255 -140"
+                      0 0 0 255 -120"
             />
           </filter>
         </defs>
@@ -88,6 +84,41 @@ const ScrollMorphingText: React.FC<ScrollMorphingTextProps> = ({ texts }) => {
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Initialize Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  // Track window scroll progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Morph spans from 0% to 70% scroll progress
+    const progress = Math.min(latest / 0.7, 1);
+    setScrollProgress(progress);
+  });
 
   return (
     <section ref={containerRef} className="relative w-full h-[180vh] bg-transparent z-10">
@@ -110,11 +141,11 @@ export default function HeroSection() {
         {/* WebGL Mist Background */}
         <MistBackground />
    
-        {/* Main Hero Container */}
-        <div className="relative z-10 flex flex-col items-center justify-center max-w-5xl w-full text-center select-none pt-24 md:pt-28">
+        {/* Main Hero Container - Centered layout */}
+        <div className="relative z-10 w-full h-full max-w-5xl flex items-center justify-center select-none">
           
-          {/* Wolf Logo Wrapper - Aspect ratio matches 3000x1403 image, height restricted to prevent overflow */}
-          <div className="relative w-full max-w-[260px] sm:max-w-[360px] md:max-w-[480px] lg:max-w-[550px] aspect-[3000/1403] mb-4 md:mb-6 flex items-center justify-center group z-20">
+          {/* Wolf Logo Wrapper - Centered mathematically in the direct center of the screen */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[240px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[480px] aspect-[3000/1403] flex items-center justify-center group z-20 mt-[-4vh]">
             
             {/* Glowing blue/cyan shining ambient aura behind the wolf */}
             <div className="absolute w-[80%] h-[120%] rounded-full bg-[radial-gradient(circle,_rgba(0,245,255,0.18)_0%,_rgba(0,245,255,0)_70%)] filter blur-3xl pointer-events-none z-0 mix-blend-screen group-hover:scale-105 transition-transform duration-1000 ease-out" />
@@ -137,13 +168,16 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Morphing Text Component */}
-          <ScrollMorphingText 
-            texts={[
-              "VENZORX",
-              "We build high-tech systems for businesses."
-            ]}
-          />
+          {/* Morphing Text Component - Positioned cleanly below the centered logo */}
+          <div className="absolute top-[calc(50%+90px)] sm:top-[calc(50%+120px)] md:top-[calc(50%+150px)] lg:top-[calc(50%+180px)] left-1/2 -translate-x-1/2 w-full z-30">
+            <ScrollMorphingText 
+              scrollProgress={scrollProgress}
+              texts={[
+                "VENZORX",
+                "We Build High-Tech Systems for Businesses."
+              ]}
+            />
+          </div>
    
         </div>
       </div>

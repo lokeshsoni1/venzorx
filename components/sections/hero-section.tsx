@@ -56,9 +56,13 @@ const ScrollMorphingText: React.FC<ScrollMorphingTextProps> = ({ texts }) => {
         {texts[0]}
       </span>
       <span 
-        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-tight text-center text-white max-w-4xl md:max-w-5xl mx-auto font-bold px-4 leading-tight uppercase select-none pointer-events-none" 
+        className="absolute inset-x-0 top-0 m-auto inline-block w-full text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-wide text-center text-white max-w-4xl md:max-w-5xl mx-auto font-medium px-4 leading-relaxed select-none pointer-events-none" 
         ref={text2Ref}
-        style={{ opacity: 0 }}
+        style={{ 
+          opacity: 0,
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic"
+        }}
       >
         {texts[1]}
       </span>
@@ -107,10 +111,10 @@ export default function HeroSection() {
         <MistBackground />
    
         {/* Main Hero Container */}
-        <div className="relative z-10 flex flex-col items-center justify-center max-w-5xl w-full text-center select-none pt-12">
+        <div className="relative z-10 flex flex-col items-center justify-center max-w-5xl w-full text-center select-none pt-24 md:pt-28">
           
           {/* Wolf Logo Wrapper - Aspect ratio matches 3000x1403 image, height restricted to prevent overflow */}
-          <div className="relative w-full max-w-[320px] sm:max-w-[480px] md:max-w-[700px] lg:max-w-[800px] aspect-[3000/1403] mb-4 md:mb-6 flex items-center justify-center group z-20">
+          <div className="relative w-full max-w-[260px] sm:max-w-[360px] md:max-w-[480px] lg:max-w-[550px] aspect-[3000/1403] mb-4 md:mb-6 flex items-center justify-center group z-20">
             
             {/* Glowing blue/cyan shining ambient aura behind the wolf */}
             <div className="absolute w-[80%] h-[120%] rounded-full bg-[radial-gradient(circle,_rgba(0,245,255,0.18)_0%,_rgba(0,245,255,0)_70%)] filter blur-3xl pointer-events-none z-0 mix-blend-screen group-hover:scale-105 transition-transform duration-1000 ease-out" />
@@ -137,7 +141,7 @@ export default function HeroSection() {
           <ScrollMorphingText 
             texts={[
               "VENZORX",
-              "WE BUILD HIGH-TECH SYSTEMS FOR BUSINESSES."
+              "We build high-tech systems for businesses."
             ]}
           />
    

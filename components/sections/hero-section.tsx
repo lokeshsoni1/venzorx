@@ -28,8 +28,8 @@ export default function HeroSection() {
       {/* Main Hero Container */}
       <div className="relative z-10 flex flex-col items-center justify-center max-w-5xl w-full text-center select-none pt-12">
         
-        {/* Wolf Logo Wrapper - Aspect ratio matches 899x293 image, height restricted to prevent overflow */}
-        <div className="relative w-full max-w-[320px] sm:max-w-[480px] md:max-w-[700px] lg:max-w-[800px] aspect-[899/293] mb-4 md:mb-6 flex items-center justify-center group z-20">
+        {/* Wolf Logo Wrapper - Aspect ratio matches 3000x1403 image, height restricted to prevent overflow */}
+        <div className="relative w-full max-w-[320px] sm:max-w-[480px] md:max-w-[700px] lg:max-w-[800px] aspect-[3000/1403] mb-4 md:mb-6 flex items-center justify-center group z-20">
           
           {/* Glowing blue/cyan shining ambient aura behind the wolf */}
           <div className="absolute w-[80%] h-[120%] rounded-full bg-[radial-gradient(circle,_rgba(0,245,255,0.18)_0%,_rgba(0,245,255,0)_70%)] filter blur-3xl pointer-events-none z-0 mix-blend-screen group-hover:scale-105 transition-transform duration-1000 ease-out" />

@@ -3,6 +3,7 @@ import SystemDirection from "@/components/sections/system-direction";
 import WhyChooseUs from "@/components/sections/why-choose-us";
 import CoreEngineeringPillars from "@/components/sections/core-engineering-pillars";
 import EngineeringMethodology from "@/components/sections/engineering-methodology";
+import ClientTestimonialsMarqueeSection from "@/components/sections/client-testimonials";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <WhyChooseUs />
       <CoreEngineeringPillars />
       <EngineeringMethodology />
+      <ClientTestimonialsMarqueeSection />
     </main>
   );
 }

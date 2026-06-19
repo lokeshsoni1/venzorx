@@ -15,7 +15,13 @@ export default function WhyChooseUs() {
       <div className="bg-gradient-to-b from-[#030712] via-[#030712]/95 to-transparent absolute top-0 left-0 w-full h-[250px] pointer-events-none z-20 backdrop-blur-[1px]" />
 
       {/* Spotlight Glow Cards Array Container */}
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-36 relative z-30">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-36 relative z-30 flex flex-col items-center">
+        
+        {/* Why Choose Us Heading */}
+        <h2 className="text-3xl md:text-5xl font-black text-white text-center mb-16 tracking-tight uppercase select-none">
+          Why Choose Us
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           
           {/* Spotlight Block 01 */}

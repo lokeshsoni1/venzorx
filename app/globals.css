@@ -66,3 +66,16 @@ body {
   filter: brightness(0.6) contrast(1.1) saturate(0.8);
 }
 
+@keyframes telemetry-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-telemetry-scroll {
+  animation: telemetry-scroll 18s linear infinite;
+}
+

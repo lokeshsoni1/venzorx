@@ -9,7 +9,7 @@ const navItems = [
   { name: "ABOUT US", href: "/about-us" },
   { name: "SERVICES", href: "/services" },
   { name: "PRICING", href: "/pricing" },
-  { name: "CONTACT", href: "/#contact" }
+  { name: "CONTACT", href: "/contact" }
 ];
 
 export function Navbar() {
@@ -37,9 +37,14 @@ export function Navbar() {
           );
         })}
       </div>
-      <button className="border border-white/20 px-5 py-1.5 rounded-full text-[10px] font-mono tracking-widest text-white uppercase bg-transparent transition-all hover:bg-white hover:text-black cursor-pointer">
-        CONNECT
-      </button>
+      <a
+        href="https://calendly.com/venzorx-co/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="border border-white/20 px-5 py-1.5 rounded-full text-[9px] font-mono tracking-widest text-white uppercase bg-transparent transition-all hover:bg-white hover:text-black cursor-pointer select-none whitespace-nowrap"
+      >
+        CONNECT DIRECTLY ON A CALL WITH VENZORX
+      </a>
     </nav>
   );
 }

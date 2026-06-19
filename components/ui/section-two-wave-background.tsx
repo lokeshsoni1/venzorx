@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 
-export default function SectionTwoWaveBackground() {
+export default function OptimizedSectionTwoShader() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current; if (!canvas) return;
     const ctx = canvas.getContext('2d'); if (!ctx) return;
     let width: number, height: number, imageData: ImageData, data: Uint8ClampedArray;
-    const SCALE = 2;
+    const SCALE = 2; // Pixel downsampling factor to handle 4K screens effortlessly
     const resizeCanvas = () => {
       if (!canvas || !ctx) return;
       canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -32,20 +32,19 @@ export default function SectionTwoWaveBackground() {
     let animationFrameId: number;
     const render = () => {
       if (!ctx || !data || !imageData || !canvas) return;
-      const time = (Date.now() - startTime) * 0.001;
+      const time = (Date.now() - startTime) * 0.0008; // Slower, hypnotic rhythm
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           const u_x = (2 * x - width) / height; const u_y = (2 * y - height) / height;
           let a = 0; let d = 0;
           for (let i = 0; i < 4; i++) {
-            a += fastCos(i - d + time * 0.5 - a * u_x);
-            d += fastSin(i * u_y + a);
+            a += fastCos(i - d + time * 0.5 - a * u_x); d += fastSin(i * u_y + a);
           }
           const wave = (fastSin(a) + fastCos(d)) * 0.5;
-          const intensity = 0.3 + 0.4 * wave;
-          const baseVal = 0.1 + 0.15 * fastCos(u_x + u_y + time * 0.3);
-          const blueAccent = 0.2 * fastSin(a * 1.5 + time * 0.2);
-          const purpleAccent = 0.15 * fastCos(d * 2 + time * 0.1);
+          const intensity = 0.25 + 0.35 * wave;
+          const baseVal = 0.08 + 0.12 * fastCos(u_x + u_y + time * 0.3);
+          const blueAccent = 0.18 * fastSin(a * 1.5 + time * 0.2);
+          const purpleAccent = 0.12 * fastCos(d * 2 + time * 0.1);
           const r = Math.max(0, Math.min(1, baseVal + purpleAccent * 0.8)) * intensity;
           const g = Math.max(0, Math.min(1, baseVal + blueAccent * 0.6)) * intensity;
           const b = Math.max(0, Math.min(1, baseVal + blueAccent * 1.2 + purpleAccent * 0.4)) * intensity;
@@ -54,10 +53,6 @@ export default function SectionTwoWaveBackground() {
         }
       }
       ctx.putImageData(imageData, 0, 0);
-      if (SCALE > 1) {
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(canvas, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
-      }
       animationFrameId = requestAnimationFrame(render);
     };
     render();

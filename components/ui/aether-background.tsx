@@ -74,6 +74,9 @@ const AetherBackground: React.FC = () => {
             if (!canvas) return;
             particles = [];
             let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            if (numberOfParticles > 80) {
+                numberOfParticles = 80;
+            }
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 1;
                 let x = (Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2);

@@ -4,6 +4,7 @@ import WhyChooseUs from "@/components/sections/why-choose-us";
 import CoreEngineeringPillars from "@/components/sections/core-engineering-pillars";
 import EngineeringMethodology from "@/components/sections/engineering-methodology";
 import ClientTestimonialsMarqueeSection from "@/components/sections/client-testimonials";
+import SystemIntegrationValidationSection from "@/components/sections/client-validation";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <CoreEngineeringPillars />
       <EngineeringMethodology />
       <ClientTestimonialsMarqueeSection />
+      <SystemIntegrationValidationSection />
     </main>
   );
 }

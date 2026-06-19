@@ -9,16 +9,22 @@ export function SmoothScrollWrapper({ children }: { children: React.ReactNode })
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: 'vertical', 
       gestureOrientation: 'vertical', 
-      smoothWheel: true 
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5
     });
     
+    let rafId: number;
     function raf(time: number) { 
       lenis.raf(time); 
-      requestAnimationFrame(raf); 
+      rafId = requestAnimationFrame(raf); 
     }
     
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
+    rafId = requestAnimationFrame(raf);
+    return () => {
+      lenis.destroy();
+      cancelAnimationFrame(rafId);
+    };
   }, []);
   
   return <div className="antialiased select-none">{children}</div>;

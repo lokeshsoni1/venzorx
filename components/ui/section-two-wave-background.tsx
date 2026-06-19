@@ -41,10 +41,10 @@ export default function OptimizedSectionTwoShader() {
             a += fastCos(i - d + time * 0.5 - a * u_x); d += fastSin(i * u_y + a);
           }
           const wave = (fastSin(a) + fastCos(d)) * 0.5;
-          const intensity = 0.25 + 0.35 * wave;
-          const baseVal = 0.08 + 0.12 * fastCos(u_x + u_y + time * 0.3);
-          const blueAccent = 0.18 * fastSin(a * 1.5 + time * 0.2);
-          const purpleAccent = 0.12 * fastCos(d * 2 + time * 0.1);
+          const intensity = 0.38 + 0.45 * wave;
+          const baseVal = 0.16 + 0.18 * fastCos(u_x + u_y + time * 0.3);
+          const blueAccent = 0.28 * fastSin(a * 1.5 + time * 0.2);
+          const purpleAccent = 0.22 * fastCos(d * 2 + time * 0.1);
           const r = Math.max(0, Math.min(1, baseVal + purpleAccent * 0.8)) * intensity;
           const g = Math.max(0, Math.min(1, baseVal + blueAccent * 0.6)) * intensity;
           const b = Math.max(0, Math.min(1, baseVal + blueAccent * 1.2 + purpleAccent * 0.4)) * intensity;

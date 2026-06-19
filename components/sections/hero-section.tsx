@@ -26,7 +26,7 @@ const ConcentricRingEmblem = () => (
 
 export default function HeroSection() {
   return (
-    <section className="h-screen w-full relative overflow-hidden bg-[#030712] z-10">
+    <section id="home" className="h-screen w-full relative overflow-hidden bg-[#030712] z-10">
       <div className="relative w-full h-full overflow-hidden">
 
 

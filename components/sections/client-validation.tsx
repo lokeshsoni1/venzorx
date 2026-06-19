@@ -154,6 +154,16 @@ export default function SystemIntegrationValidationSection() {
       {/* Background Aura Vector */}
       <div className="absolute bg-zinc-800/10 blur-[130px] h-[500px] w-[500px] pointer-events-none top-10 z-0" />
 
+      {/* Typography Header Stack */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center mb-16 max-w-5xl mx-auto w-full">
+        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase font-sans mb-4">
+          SYSTEM INTEGRATION VALIDATION
+        </h2>
+        <p className="text-sm md:text-lg font-mono text-cyan-400 tracking-widest uppercase">
+          10 Global Enterprises. Zero Fault Vectors. Full Operational Autonomy.
+        </p>
+      </div>
+
       {/* Main Interactive Stage Container */}
       <div
         ref={containerRef}

@@ -14,7 +14,7 @@ const AetherBackground: React.FC = () => {
         
         let animationFrameId: number;
         let particles: Particle[] = [];
-        const mouse: { x: number | null, y: number | null, radius: number } = { x: null, y: null, radius: 200 };
+        const mouse: { x: number | null, y: number | null, radius: number } = { x: null, y: null, radius: 220 };
 
         class Particle {
             x: number;
@@ -43,6 +43,8 @@ const AetherBackground: React.FC = () => {
 
             update() {
                 if (!canvas) return;
+                
+                // Edge bounce
                 if (this.x > canvas.width || this.x < 0) {
                     this.directionX = -this.directionX;
                 }
@@ -50,17 +52,21 @@ const AetherBackground: React.FC = () => {
                     this.directionY = -this.directionY;
                 }
 
-                // Mouse collision detection
+                // Mouse collision detection (Repulsion)
                 if (mouse.x !== null && mouse.y !== null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius + this.size) {
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        this.x -= forceDirectionX * force * 5;
-                        this.y -= forceDirectionY * force * 5;
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDist = mouse.radius + this.size;
+                    
+                    if (distance < minDist) {
+                        const forceDirectionX = dx / (distance || 1);
+                        const forceDirectionY = dy / (distance || 1);
+                        const force = (minDist - distance) / minDist;
+                        
+                        // Slightly stronger force factor for reactive hover responses
+                        this.x -= forceDirectionX * force * 7;
+                        this.y -= forceDirectionY * force * 7;
                     }
                 }
 
@@ -73,16 +79,21 @@ const AetherBackground: React.FC = () => {
         function init() {
             if (!canvas) return;
             particles = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            let numberOfParticles = (canvas.height * canvas.width) / 9500;
+            // Clamp dot count to ensure high frames on large monitors
             if (numberOfParticles > 80) {
                 numberOfParticles = 80;
             }
+            
             for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
+                let size = (Math.random() * 2) + 1.2;
                 let x = (Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2);
                 let y = (Math.random() * ((window.innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
+                
+                // Increased speed range for faster, active particle movements
+                let directionX = (Math.random() * 1.5) - 0.75;
+                let directionY = (Math.random() * 1.5) - 0.75;
+                
                 const blueShades = [
                   'rgba(0, 170, 255, 0.9)',
                   'rgba(0, 191, 255, 0.9)',
@@ -106,29 +117,36 @@ const AetherBackground: React.FC = () => {
 
         const connect = () => {
             if (!canvas || !ctx) return;
+            const distLimit = (canvas.width / 6.5) * (canvas.height / 6.5);
             let opacityValue = 1;
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
-                        + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+            const len = particles.length;
+
+            for (let a = 0; a < len; a++) {
+                const pA = particles[a];
+                for (let b = a + 1; b < len; b++) {
+                    const pB = particles[b];
+                    const dx = pA.x - pB.x;
+                    const dy = pA.y - pB.y;
+                    const distance = dx * dx + dy * dy;
                     
-                    if (distance < (canvas.width / 6) * (canvas.height / 6)) {
-                        opacityValue = 1 - (distance / 20000);
+                    if (distance < distLimit) {
+                        opacityValue = 1 - (distance / (distLimit || 1));
+                        if (opacityValue < 0) opacityValue = 0;
                         
-                        let dx_mouse_a = mouse.x !== null ? particles[a].x - mouse.x : 0;
-                        let dy_mouse_a = mouse.y !== null ? particles[a].y - mouse.y : 0;
-                        let distance_mouse_a = Math.sqrt(dx_mouse_a*dx_mouse_a + dy_mouse_a*dy_mouse_a);
+                        let dx_mouse_a = mouse.x !== null ? pA.x - mouse.x : 0;
+                        let dy_mouse_a = mouse.y !== null ? pA.y - mouse.y : 0;
+                        const distance_mouse_a = Math.sqrt(dx_mouse_a * dx_mouse_a + dy_mouse_a * dy_mouse_a);
 
                         if (mouse.x !== null && distance_mouse_a < mouse.radius) {
-                             ctx.strokeStyle = `rgba(120, 220, 255, ${opacityValue})`;
+                             ctx.strokeStyle = `rgba(120, 220, 255, ${opacityValue * 0.95})`;
                         } else {
-                             ctx.strokeStyle = `rgba(0, 191, 255, ${opacityValue})`;
+                             ctx.strokeStyle = `rgba(0, 191, 255, ${opacityValue * 0.75})`;
                         }
                         
                         ctx.lineWidth = 1;
                         ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.moveTo(pA.x, pA.y);
+                        ctx.lineTo(pB.x, pB.y);
                         ctx.stroke();
                     }
                 }
@@ -141,7 +159,8 @@ const AetherBackground: React.FC = () => {
             ctx.fillStyle = '#030712';
             ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-            for (let i = 0; i < particles.length; i++) {
+            const len = particles.length;
+            for (let i = 0; i < len; i++) {
                 particles[i].update();
             }
             connect();

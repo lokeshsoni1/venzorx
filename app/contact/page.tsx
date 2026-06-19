@@ -100,13 +100,6 @@ export default function StandaloneContactPage() {
           </div>
         </form>
       </div>
-
-      {/* CONTINUUM TERMINATION FOOTER */}
-      <footer className="relative z-10 w-full">
-        <p className="font-mono text-[10px] tracking-[0.25em] text-zinc-600 mt-12 uppercase text-center">
-          © 2026 VENZORX. ALL RIGHTS RESERVED. SECURED DECOUPLED SYSTEMS METRICS.
-        </p>
-      </footer>
     </main>
   );
 }

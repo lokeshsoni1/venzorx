@@ -26,7 +26,7 @@ const ConcentricRingEmblem = () => (
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full h-screen bg-transparent z-10">
+    <section className="relative w-full h-screen overflow-hidden max-w-full bg-transparent z-10">
       <div className="relative w-full h-full overflow-hidden">
 
         <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl bg-[#0d1117]/40 backdrop-blur-xl border border-white/5 px-8 py-3.5 rounded-full flex items-center justify-between shadow-[0_15px_50px_rgba(0,0,0,0.6)]">

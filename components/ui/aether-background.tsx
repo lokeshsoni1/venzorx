@@ -171,7 +171,7 @@ const AetherBackground: React.FC = () => {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed inset-0 w-full h-full pointer-events-none z-[-1]"
+            className="absolute inset-0 w-full h-full pointer-events-none z-[-1]"
             style={{ background: '#030712' }}
         />
     );

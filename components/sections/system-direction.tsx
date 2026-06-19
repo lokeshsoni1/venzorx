@@ -5,29 +5,31 @@ import SectionTwoWaveBackground from '@/components/ui/section-two-wave-backgroun
 
 export default function SystemDirection() {
   return (
-    <section className="w-full relative py-36 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-[#030712]">
+    <section className="w-full relative py-40 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-[#030712] antialiased tracking-tight">
       {/* Dynamic Wave Shader Background */}
       <SectionTwoWaveBackground />
 
-      {/* Oil-Pastel Seamless Blend Overlay */}
-      <div className="bg-gradient-to-b from-transparent via-[#030712]/70 to-[#030712] absolute top-0 left-0 w-full h-[220px] pointer-events-none z-20 backdrop-blur-[1px]" />
+      {/* High-Fidelity Oil-Pastel Visual Blend Smudge */}
+      <div className="bg-gradient-to-b from-[#030712] via-[#030712]/80 to-transparent absolute top-0 left-0 w-full h-[240px] pointer-events-none z-20 backdrop-blur-[2px]" />
 
       {/* Typographic Text Stack Layer */}
-      <div className="relative z-30 flex flex-col items-center justify-center max-w-5xl mx-auto w-full text-center">
-        {/* Section Marker */}
-        <span className="font-mono tracking-[0.45em] text-cyan-400 text-xs uppercase mb-6 block select-none">
+      <div className="relative z-30 flex flex-col items-center justify-center max-w-6xl mx-auto w-full text-center">
+        {/* Section ID Marker */}
+        <span className="font-mono tracking-[0.5em] text-cyan-400 text-xs uppercase mb-6 block select-none">
           02 // SYSTEM DIRECTION
         </span>
 
-        {/* Enterprise Heading */}
-        <h2 className="font-sans font-extrabold tracking-tighter text-4xl md:text-7xl text-white mb-8 max-w-5xl leading-tight">
+        {/* Metallic Enterprise Heading */}
+        <h2 className="font-sans font-black tracking-tighter text-5xl md:text-8xl text-white mb-10 max-w-6xl leading-none drop-shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
           WE BUILD HIGH-TECH ENGINEERING SYSTEMS.
         </h2>
 
-        {/* The Ruthless Competitor Copy Hook */}
-        <p className="max-w-4xl text-zinc-300 text-base md:text-xl font-medium leading-relaxed">
-          When you deploy digital architecture engineered by VenzorX, you completely eliminate the concept of competition from your operating model. Our bespoke, visually arresting, and ruthlessly conversion-optimized systems position your enterprise lightyears ahead of the market baseline.
-        </p>
+        {/* The Glassmorphic Text Sheet Layout */}
+        <div className="max-w-4xl w-full mx-auto bg-zinc-950/30 backdrop-blur-xl border border-white/5 p-10 md:p-14 rounded-3xl text-center relative z-30 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+          <p className="text-zinc-200 text-lg md:text-2xl font-normal leading-relaxed">
+            When you deploy digital architecture engineered by VenzorX, you completely eliminate the concept of competition from your operating model. Our bespoke, visually arresting, and ruthlessly conversion-optimized systems position your enterprise lightyears ahead of the market baseline.
+          </p>
+        </div>
       </div>
     </section>
   );

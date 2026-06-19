@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Architects_Daughter, Geist, Geist_Mono } from "next/font/google";
-import { SmoothScrollWrapper } from "@/components/ui/smooth-scroll-wrapper";
+import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-wrapper";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,7 +35,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${architectsDaughter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

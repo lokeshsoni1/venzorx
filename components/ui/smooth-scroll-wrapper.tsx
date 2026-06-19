@@ -2,22 +2,21 @@
 import { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 
-export function SmoothScrollWrapper({ children }: { children: React.ReactNode }) {
+export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({ 
-      duration: 1.2, 
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-      orientation: 'vertical', 
-      gestureOrientation: 'vertical', 
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.5
     });
     
     let rafId: number;
-    function raf(time: number) { 
-      lenis.raf(time); 
-      rafId = requestAnimationFrame(raf); 
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     }
     
     rafId = requestAnimationFrame(raf);
@@ -27,5 +26,9 @@ export function SmoothScrollWrapper({ children }: { children: React.ReactNode })
     };
   }, []);
   
-  return <div className="antialiased select-none">{children}</div>;
+  return (
+    <div className="antialiased selection-none bg-[#030712] text-white w-full min-h-screen">
+      {children}
+    </div>
+  );
 }

@@ -1,6 +1,5 @@
 import HeroSection from "@/components/sections/hero-section";
 import SystemDirection from "@/components/sections/system-direction";
-import AboutUs from "@/components/sections/about-us";
 import WhyChooseUs from "@/components/sections/why-choose-us";
 import CoreEngineeringPillars from "@/components/sections/core-engineering-pillars";
 import EngineeringMethodology from "@/components/sections/engineering-methodology";
@@ -12,7 +11,6 @@ export default function Home() {
     <main>
       <HeroSection />
       <SystemDirection />
-      <AboutUs />
       <WhyChooseUs />
       <CoreEngineeringPillars />
       <EngineeringMethodology />

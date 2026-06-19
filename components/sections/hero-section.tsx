@@ -49,7 +49,7 @@ export default function HeroSection() {
 
             <ConcentricRingEmblem />
 
-            <div className="w-full max-w-5xl px-2 relative z-20 -mt-6 sm:-mt-10 md:-mt-14">
+            <div className="w-full max-w-5xl px-2 relative z-20 mt-3 sm:mt-4 md:mt-6">
               <motion.h1
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}

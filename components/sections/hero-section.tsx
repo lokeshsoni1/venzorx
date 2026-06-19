@@ -29,18 +29,7 @@ export default function HeroSection() {
     <section className="h-screen w-full relative overflow-hidden bg-[#030712] z-10">
       <div className="relative w-full h-full overflow-hidden">
 
-        <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl bg-[#0d1117]/40 backdrop-blur-xl border border-white/5 px-8 py-3.5 rounded-full flex items-center justify-between shadow-[0_15px_50px_rgba(0,0,0,0.6)]">
-          <div className="hidden md:flex items-center gap-8 font-mono text-[10px] tracking-[0.25em] font-bold text-zinc-400 uppercase">
-            <a href="#" className="hover:text-[#00F5FF] transition-colors duration-300">HOME</a>
-            <a href="#" className="hover:text-[#00F5FF] transition-colors duration-300">ABOUT US</a>
-            <a href="#" className="hover:text-[#00F5FF] transition-colors duration-300">PRICING</a>
-            <a href="#" className="hover:text-[#00F5FF] transition-colors duration-300">SERVICES</a>
-            <a href="#" className="hover:text-[#00F5FF] transition-colors duration-300">CONTACT</a>
-          </div>
-          <button className="border border-white/20 px-5 py-1.5 rounded-full text-[10px] font-mono tracking-widest text-white uppercase bg-transparent transition-all hover:bg-white hover:text-black cursor-pointer">
-            CONNECT
-          </button>
-        </nav>
+
 
         <AetherBackground />
 

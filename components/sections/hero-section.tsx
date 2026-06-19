@@ -8,12 +8,12 @@ const ConcentricRingEmblem = () => (
     initial={{ opacity: 0, scale: 0.94 }}
     animate={{ opacity: 1, scale: 1 }}
     whileHover={{
-      scale: 1.05,
-      filter: "drop-shadow(0 0 45px rgba(0, 245, 255, 0.5))",
+      scale: 1.03,
+      filter: "drop-shadow(0 0 55px rgba(0, 245, 255, 0.55))",
       transition: { type: "spring", stiffness: 280, damping: 22 },
     }}
     transition={{ duration: 1.1, ease: "easeOut" }}
-    className="relative flex items-center justify-center w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[480px] md:h-[480px] cursor-pointer"
+    className="relative flex items-center justify-center w-[280px] h-[280px] sm:w-[420px] sm:h-[420px] md:w-[580px] md:h-[580px] cursor-pointer"
   >
     <img
       src="/images/3d_wolf_logo.png"
@@ -44,8 +44,8 @@ export default function HeroSection() {
 
         <AetherBackground />
 
-        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 md:px-8 pt-16 pb-12">
-          <div className="flex flex-col items-center gap-5 sm:gap-6 md:gap-7 max-w-5xl w-full">
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 md:px-8 pt-20 pb-8">
+          <div className="flex flex-col items-center gap-3 sm:gap-4 md:gap-5 max-w-5xl w-full">
 
             <ConcentricRingEmblem />
 
@@ -54,8 +54,8 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: "easeOut" }}
-                className="text-4xl sm:text-6xl lg:text-8xl font-sans font-black tracking-[0.6em] text-white uppercase select-none pointer-events-none text-center"
-                style={{ fontFamily: "var(--font-stencil)", textIndent: "0.6em" }}
+                className="text-2xl sm:text-4xl md:text-5xl font-sans font-black tracking-[0.5em] text-white uppercase select-none pointer-events-none text-center"
+                style={{ fontFamily: "var(--font-stencil)", textIndent: "0.5em" }}
               >
                 VENZORX
               </motion.h1>

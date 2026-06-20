@@ -30,15 +30,21 @@ export default function HeroSection() {
   const [isMobileGlowActive, setIsMobileGlowActive] = useState(false);
 
   useEffect(() => {
-    const handleFirstMobileTouch = () => {
+    const triggerInitialGlow = () => {
       if (window.innerWidth < 768) {
         setIsMobileGlowActive(true);
       }
-      window.removeEventListener("pointerdown", handleFirstMobileTouch);
+      window.removeEventListener("click", triggerInitialGlow);
+      window.removeEventListener("touchstart", triggerInitialGlow);
     };
 
-    window.addEventListener("pointerdown", handleFirstMobileTouch, { passive: true });
-    return () => window.removeEventListener("pointerdown", handleFirstMobileTouch);
+    window.addEventListener("click", triggerInitialGlow, { passive: true });
+    window.addEventListener("touchstart", triggerInitialGlow, { passive: true });
+    
+    return () => {
+      window.removeEventListener("click", triggerInitialGlow);
+      window.removeEventListener("touchstart", triggerInitialGlow);
+    };
   }, []);
 
   return (

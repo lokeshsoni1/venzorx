@@ -24,7 +24,7 @@ export default function StandaloneServicesPage() {
 
       {/* TYPOGRAPHIC INTRO BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">
-        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 font-sans uppercase z-10">
+        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase z-10">
           OUR ENGINEERING DEPLOYMENTS.
         </h1>
         <p className="text-sm md:text-lg font-mono text-zinc-400 text-center tracking-widest uppercase z-10">

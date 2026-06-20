@@ -156,7 +156,7 @@ export default function ClientTestimonialsMarqueeSection() {
       <div className="absolute bg-cyan-500/5 blur-[140px] h-[550px] w-[550px] pointer-events-none top-0 z-0" />
       
       <div className="relative z-10 text-center max-w-5xl mx-auto mb-20 flex flex-col items-center">
-        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 uppercase font-sans">
+        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 uppercase font-sans">
           VALIDATED BY LEADING OPERATIONS.
         </h2>
         <p className="text-base md:text-xl font-mono text-cyan-400 text-center tracking-widest uppercase">

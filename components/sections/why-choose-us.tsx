@@ -23,7 +23,7 @@ export default function WhyChooseUs() {
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-36 relative z-30 flex flex-col items-center">
         
         {/* Why Choose Us Heading */}
-        <h2 className="text-3xl md:text-5xl font-black text-white text-center mb-16 tracking-tight uppercase select-none">
+        <h2 className="text-3xl md:text-5xl font-black text-white text-center mb-16 tracking-normal uppercase select-none">
           Why Choose Us
         </h2>
 

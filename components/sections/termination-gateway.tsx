@@ -9,7 +9,7 @@ export default function TerminationGateway() {
     <section className="w-full relative py-20 px-6 text-center bg-transparent z-30 antialiased">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         {/* PRIMARY HEADLINE */}
-        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase mb-8">
+        <h2 className="text-3xl md:text-5xl font-black text-white tracking-normal uppercase mb-8">
           WANT TO KNOW MORE? CONTACT VENZORX NOW.
         </h2>
 

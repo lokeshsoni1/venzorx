@@ -21,7 +21,7 @@ export default function StandaloneAboutUsPage() {
 
       {/* TYPOGRAPHY MIXTURE INTRO HEADER BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-20 flex flex-col items-center">
-        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 font-sans uppercase z-10">
+        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase z-10">
           HOW WE EXECUTE.
         </h1>
         <p className="text-zinc-300 text-base md:text-xl font-normal leading-relaxed text-center max-w-4xl z-10">

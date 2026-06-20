@@ -55,7 +55,7 @@ export default function StandalonePricingPage() {
 
       {/* Corporate High-Contrast Top Typographic Stack */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-14 flex flex-col items-center">
-        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 uppercase font-sans">
+        <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 uppercase font-sans">
           ENTERPRISE INFRASTRUCTURE.
         </h1>
         <p className="text-base md:text-xl font-mono text-cyan-400 text-center tracking-widest uppercase">

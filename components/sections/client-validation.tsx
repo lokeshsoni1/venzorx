@@ -156,7 +156,7 @@ export default function SystemIntegrationValidationSection() {
 
       {/* Typography Header Stack */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center mb-16 max-w-5xl mx-auto w-full">
-        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase font-sans mb-4">
+        <h2 className="text-4xl md:text-6xl font-black text-white tracking-normal uppercase font-sans mb-4">
           SYSTEM INTEGRATION VALIDATION
         </h2>
         <p className="text-sm md:text-lg font-mono text-cyan-400 tracking-widest uppercase">

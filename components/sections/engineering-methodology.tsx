@@ -12,7 +12,7 @@ export default function EngineeringMethodology() {
 
       {/* Intro Header */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-5xl mx-auto w-full text-center">
-        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 font-sans uppercase">
+        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase">
           THE PRODUCTION PIPELINE CORE.
         </h2>
         <p className="text-base md:text-xl font-medium tracking-wide text-zinc-400 text-center max-w-3xl leading-relaxed">

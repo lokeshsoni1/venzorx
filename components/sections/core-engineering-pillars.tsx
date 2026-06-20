@@ -12,7 +12,7 @@ export default function CoreEngineeringPillars() {
 
       {/* Intro Header */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-5xl mx-auto w-full text-center">
-        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-tight leading-none mb-6 font-sans uppercase">
+        <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase">
           OUR CORE ENGINEERING SYSTEMS.
         </h2>
         <span className="text-base md:text-xl font-medium tracking-widest text-cyan-400 text-center uppercase font-mono">

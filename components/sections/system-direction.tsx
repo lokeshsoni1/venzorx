@@ -15,7 +15,7 @@ export default function SystemDirection() {
       {/* Typographic Text Stack Layer */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-6xl mx-auto w-full text-center">
         {/* Primary Enterprise Heading Word-Gap Repair */}
-        <h2 className="text-5xl md:text-8xl font-black text-white text-center mb-14 max-w-6xl relative z-30 tracking-tight leading-tight uppercase select-none">
+        <h2 className="text-5xl md:text-8xl font-black text-white text-center mb-14 max-w-6xl relative z-30 tracking-normal mx-auto leading-tight uppercase select-none">
           WE BUILD HIGH-TECH ENGINEERING SYSTEMS.
         </h2>
 

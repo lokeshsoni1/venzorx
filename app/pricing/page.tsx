@@ -4,7 +4,6 @@ import React from "react";
 import { ShieldCheck, Target, Terminal, Cpu, MessageSquareText } from "lucide-react";
 import { SinglePricingCard } from "@/components/ui/single-pricing-card";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
-import { GradientText } from "@/components/ui/gradient-text";
 
 export default function StandalonePricingPage() {
   const customTechnicalFeatures = [
@@ -52,7 +51,7 @@ export default function StandalonePricingPage() {
       {/* Corporate High-Contrast Top Typographic Stack */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-14 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 uppercase font-sans">
-          <GradientText>ENTERPRISE INFRASTRUCTURE</GradientText>.
+          ENTERPRISE INFRASTRUCTURE.
         </h1>
         <p className="text-base md:text-xl font-mono text-cyan-400 text-center tracking-widest uppercase">
           Zero Shorthand Subscriptions. Bespoke Production Systems Only.

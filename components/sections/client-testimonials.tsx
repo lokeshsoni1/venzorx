@@ -2,7 +2,6 @@
 
 import React, { ComponentPropsWithoutRef } from "react";
 import { Star } from "lucide-react";
-import { GradientText } from "@/components/ui/gradient-text";
 
 // ==========================================
 // 1. REUSEABLE LIQUID GLASS CARD ARCHITECTURE
@@ -158,7 +157,7 @@ export default function ClientTestimonialsMarqueeSection() {
       
       <div className="relative z-10 text-center max-w-5xl mx-auto mb-20 flex flex-col items-center">
         <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 uppercase font-sans">
-          VALIDATED BY <GradientText>LEADING OPERATIONS</GradientText>.
+          VALIDATED BY LEADING OPERATIONS.
         </h2>
         <p className="text-base md:text-xl font-mono text-cyan-400 text-center tracking-widest uppercase">
           Bespoke digital engines running globally across high-growth commercial sectors.

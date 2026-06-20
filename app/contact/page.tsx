@@ -5,7 +5,6 @@ import React, { useState, useCallback, memo } from "react";
 import { MessageSquare, MessageCircle, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
-import { GradientText } from "@/components/ui/gradient-text";
 
 const ContactForm = memo(function ContactForm() {
   const [formData, setFormData] = useState({
@@ -107,7 +106,7 @@ export default function StandaloneContactPage() {
       {/* TYPOGRAPHIC AGGRESSIVE HOOK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-12 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal uppercase mb-6 font-sans z-10">
-          READY TO <GradientText>ELIMINATE COMPETITION</GradientText>?
+          READY TO ELIMINATE COMPETITION?
         </h1>
         <p className="text-base md:text-xl font-mono text-cyan-400 text-center tracking-wider uppercase z-10">
           Worst case: clarity. Best case: secure an unfair market advantage.

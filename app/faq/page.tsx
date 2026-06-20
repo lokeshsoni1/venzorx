@@ -5,7 +5,6 @@ import React, { useState, useCallback, useMemo, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
-import { GradientText } from "@/components/ui/gradient-text";
 
 interface FAQItemProps {
   question: string;
@@ -131,7 +130,7 @@ export default function StandaloneFAQPage() {
       {/* INTRO BLOCK HEADINGS */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 uppercase z-10">
-          RAW CLARITY. <GradientText>UNFILTERED ANSWERS</GradientText>.
+          RAW CLARITY. UNFILTERED ANSWERS.
         </h1>
         <p className="text-sm md:text-lg font-mono text-cyan-400 text-center tracking-widest uppercase z-10">
           Straightforward answers to critical questions from clients who invest in elite engineering.

@@ -4,7 +4,6 @@
 import React from "react";
 import { MessageSquare, Globe, GitBranch } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
-import { GradientText } from "@/components/ui/gradient-text";
 
 export default function StandaloneServicesPage() {
   return (
@@ -18,7 +17,7 @@ export default function StandaloneServicesPage() {
       {/* TYPOGRAPHIC INTRO BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase z-10">
-          OUR <GradientText>ENGINEERING DEPLOYMENTS</GradientText>.
+          OUR ENGINEERING DEPLOYMENTS.
         </h1>
         <p className="text-sm md:text-lg font-mono text-zinc-400 text-center tracking-widest uppercase z-10">
           Active High-Performance Deliverables and Upcoming Automation Roadmap.

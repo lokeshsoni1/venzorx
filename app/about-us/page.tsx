@@ -4,7 +4,6 @@
 import React from "react";
 import { Clock, Slash, Terminal } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
-import { GradientText } from "@/components/ui/gradient-text";
 
 export default function StandaloneAboutUsPage() {
   return (
@@ -15,10 +14,10 @@ export default function StandaloneAboutUsPage() {
       {/* Cloudinary System Background Video Layer */}
       <CloudinarySystemBackground />
 
-      {/* TYPOGRAPHY MIXTURE INTRO HEADER BLOCK */}
+      {/* TYPOGRAPHIC MIXTURE INTRO HEADER BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-20 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase z-10">
-          HOW WE <GradientText>EXECUTE</GradientText>.
+          HOW WE EXECUTE.
         </h1>
         <p className="text-zinc-300 text-base md:text-xl font-normal leading-relaxed text-center max-w-4xl z-10">
           We refuse to deploy generic shorthand architectures or depend on bloated template builders like WordPress or Elementor. Our baseline standard is simple: handcrafted, high-velocity source code written completely from scratch to ensure maximum execution speeds. We fulfill commitments strictly on time, and if a system fault occurs, our engineers track and fix the root cause immediately without delay vectors.

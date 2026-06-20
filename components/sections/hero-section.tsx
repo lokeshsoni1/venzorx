@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 const AetherBackground = dynamic(() => import("@/components/ui/aether-background"), { ssr: false });
@@ -14,7 +15,7 @@ const ConcentricRingEmblem = () => (
       transition: { type: "spring", stiffness: 280, damping: 22 },
     }}
     transition={{ duration: 1.1, ease: "easeOut" }}
-    className="relative flex items-center justify-center w-[280px] sm:w-[420px] md:w-[580px] aspect-square max-h-[50vh] cursor-pointer"
+    className="relative flex items-center justify-center w-[280px] sm:w-[420px] md:w-[580px] aspect-square max-h-[50vh] cursor-pointer z-10"
   >
     <img
       src="/images/3d_wolf_logo.png"
@@ -26,18 +27,42 @@ const ConcentricRingEmblem = () => (
 );
 
 export default function HeroSection() {
+  const [isMobileGlowActive, setIsMobileGlowActive] = useState(false);
+
+  useEffect(() => {
+    const handleFirstMobileTouch = () => {
+      if (window.innerWidth < 768) {
+        setIsMobileGlowActive(true);
+      }
+      window.removeEventListener("pointerdown", handleFirstMobileTouch);
+    };
+
+    window.addEventListener("pointerdown", handleFirstMobileTouch, { passive: true });
+    return () => window.removeEventListener("pointerdown", handleFirstMobileTouch);
+  }, []);
+
   return (
     <section id="home" className="h-screen w-full relative overflow-hidden bg-transparent z-10">
       <div className="relative w-full h-full overflow-hidden">
-
-
-
         <AetherBackground />
 
         <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 md:px-8 pt-16 pb-6">
           <div className="flex flex-col items-center justify-center gap-2 max-w-5xl w-full h-full">
 
-            <ConcentricRingEmblem />
+            {/* Main Wolf Graphic Bounding Container Context Node */}
+            <div className="relative flex items-center justify-center transform-gpu backface-hidden z-10">
+              {/* Dynamic Blue Glow Shadow Layer Block Mask */}
+              <div 
+                className={`
+                  absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu transition-opacity duration-1000 ease-out
+                  md:opacity-100
+                  ${isMobileGlowActive ? "opacity-100 scale-105" : "max-md:opacity-0 scale-95"}
+                `}
+                style={{ willChange: "opacity, transform" }}
+              />
+
+              <ConcentricRingEmblem />
+            </div>
 
             <div className="w-full max-w-5xl px-2 relative z-20 mt-3 sm:mt-4 md:mt-6">
               <motion.h1

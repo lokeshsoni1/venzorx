@@ -24,7 +24,7 @@ export default function CoreEngineeringPillars() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl w-full mx-auto mt-20 relative z-30">
         
         {/* Column Pillar 01 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[580px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-10 md:p-14 flex flex-col justify-between text-left shadow-[0_25px_60px_rgba(0,0,0,0.6)] rounded-3xl">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[580px] p-10 md:p-14 flex flex-col justify-between text-left shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col justify-start h-full">
             <Layers className="text-cyan-400 h-8 w-8 mb-6" />
             <h3 className="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight uppercase font-sans select-none">
@@ -57,7 +57,7 @@ export default function CoreEngineeringPillars() {
         </GlowCard>
 
         {/* Column Pillar 02 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[580px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-10 md:p-14 flex flex-col justify-between text-left shadow-[0_25px_60px_rgba(0,0,0,0.6)] rounded-3xl">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[580px] p-10 md:p-14 flex flex-col justify-between text-left shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
           <div className="flex flex-col justify-start h-full">
             <Cpu className="text-cyan-400 h-8 w-8 mb-6" />
             <h3 className="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight uppercase font-sans select-none">

@@ -24,7 +24,7 @@ export default function EngineeringMethodology() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl w-full mx-auto mt-20 relative z-30">
         
         {/* Stage 01 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-8 flex flex-col justify-between text-left rounded-3xl relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] p-8 flex flex-col justify-between text-left relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col justify-start h-full">
             <div className="flex items-center justify-between w-full mb-6">
               <Search className="text-cyan-400 h-6 w-6" />
@@ -40,7 +40,7 @@ export default function EngineeringMethodology() {
         </GlowCard>
 
         {/* Stage 02 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-8 flex flex-col justify-between text-left rounded-3xl relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] p-8 flex flex-col justify-between text-left relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col justify-start h-full">
             <div className="flex items-center justify-between w-full mb-6">
               <GitBranch className="text-cyan-400 h-6 w-6" />
@@ -56,7 +56,7 @@ export default function EngineeringMethodology() {
         </GlowCard>
 
         {/* Stage 03 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-8 flex flex-col justify-between text-left rounded-3xl relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] p-8 flex flex-col justify-between text-left relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col justify-start h-full">
             <div className="flex items-center justify-between w-full mb-6">
               <Terminal className="text-cyan-400 h-6 w-6" />
@@ -72,7 +72,7 @@ export default function EngineeringMethodology() {
         </GlowCard>
 
         {/* Stage 04 */}
-        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] bg-zinc-900/50 backdrop-blur-2xl border border-white/10 p-8 flex flex-col justify-between text-left rounded-3xl relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[380px] p-8 flex flex-col justify-between text-left relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col justify-start h-full">
             <div className="flex items-center justify-between w-full mb-6">
               <Rocket className="text-cyan-400 h-6 w-6" />

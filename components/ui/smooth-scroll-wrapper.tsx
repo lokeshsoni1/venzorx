@@ -69,10 +69,48 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       }
     };
   }, []);
-  
   return (
-    <div className="antialiased selection-none bg-[#030712] text-white w-full min-h-screen">
-      {children}
-    </div>
+    <RootLayoutPerformanceDriver>
+      <div className="antialiased selection-none bg-[#030712] text-white w-full min-h-screen">
+        {children}
+      </div>
+    </RootLayoutPerformanceDriver>
   );
+}
+
+interface PerformanceDriverProps {
+  children: React.ReactNode;
+}
+
+export function RootLayoutPerformanceDriver({ children }: PerformanceDriverProps) {
+  useEffect(() => {
+    const handleScrollStart = () => {
+      if (document && document.body) {
+        document.body.classList.add("is-scrolling");
+      }
+    };
+    
+    const handleScrollEnd = () => {
+      if (document && document.body) {
+        document.body.classList.remove("is-scrolling");
+      }
+    };
+
+    let scrollTimeout: NodeJS.Timeout;
+    
+    const scrollDebouncer = () => {
+      handleScrollStart();
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollEnd, 120); // Thread recovery latency
+    };
+
+    window.addEventListener("scroll", scrollDebouncer, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", scrollDebouncer);
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
+
+  return <>{children}</>;
 }

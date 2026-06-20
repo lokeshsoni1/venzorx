@@ -58,5 +58,12 @@ export default function OptimizedSectionTwoShader() {
     render();
     return () => { window.removeEventListener('resize', resizeCanvas); cancelAnimationFrame(animationFrameId); };
   }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
+  return (
+    <div 
+      className="transform-gpu backface-hidden will-change-transform translate-z-0 pointer-events-none absolute inset-0 z-0 preserve-3d"
+      style={{ contain: "strict" }}
+    >
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
+    </div>
+  );
 }

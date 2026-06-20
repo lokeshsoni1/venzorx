@@ -92,7 +92,8 @@ body {
   animation: marquee var(--duration, 35s) linear infinite;
 }
 
-/* Scroll performance optimizations */
+/* Instantly suspends heavy pointer matrix and dynamic element hover computations during scroll momentum changes */
+.is-scrolling,
 .is-scrolling * {
   pointer-events: none !important;
 }

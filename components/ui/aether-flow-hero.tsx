@@ -192,7 +192,12 @@ const AetherFlowHero = () => {
     return (
         <div className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
             {/* The canvas is now the primary background */}
-            <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+            <div 
+              className="transform-gpu backface-hidden will-change-transform translate-z-0 pointer-events-none absolute inset-0 z-0 preserve-3d"
+              style={{ contain: "strict" }}
+            >
+                <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+            </div>
             
             {/* Overlay HTML Content */}
             <div className="relative z-10 text-center p-6">

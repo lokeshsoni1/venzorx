@@ -4,15 +4,7 @@
 import React, { useState, useCallback, memo } from "react";
 import { MessageSquare, MessageCircle, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const GlobalSystemShaderBackdrop = dynamic(
-  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { 
-    ssr: false,
-    loading: () => <div className="absolute inset-0 bg-[#030712] pointer-events-none" />
-  }
-);
+import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 
 const ContactForm = memo(function ContactForm() {
   const [formData, setFormData] = useState({
@@ -108,8 +100,8 @@ export default function StandaloneContactPage() {
       {/* Neon Spectral Aura */}
       <div className="absolute bg-cyan-500/5 blur-[150px] h-[550px] w-[550px] pointer-events-none top-1/4 z-0" />
 
-      {/* Global Shader Backdrop Canvas */}
-      <GlobalSystemShaderBackdrop />
+      {/* Cloudinary System Background Video Layer */}
+      <CloudinarySystemBackground />
 
       {/* TYPOGRAPHIC AGGRESSIVE HOOK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-12 flex flex-col items-center">

@@ -3,12 +3,7 @@
 
 import React from "react";
 import { Clock, Slash, Terminal } from "lucide-react";
-import dynamic from "next/dynamic";
-
-const GlobalSystemShaderBackdrop = dynamic(
-  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { ssr: false }
-);
+import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 
 export default function StandaloneAboutUsPage() {
   return (
@@ -16,8 +11,8 @@ export default function StandaloneAboutUsPage() {
       {/* Radial Dissolve Background Shader */}
       <div className="absolute bg-zinc-800/10 blur-[150px] h-[600px] w-[600px] pointer-events-none top-1/4 z-0" />
 
-      {/* Global Shader Backdrop Canvas */}
-      <GlobalSystemShaderBackdrop />
+      {/* Cloudinary System Background Video Layer */}
+      <CloudinarySystemBackground />
 
       {/* TYPOGRAPHY MIXTURE INTRO HEADER BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-20 flex flex-col items-center">

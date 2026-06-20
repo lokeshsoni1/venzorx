@@ -3,12 +3,7 @@
 import React from "react";
 import { ShieldCheck, Target, Terminal, Cpu, MessageSquareText } from "lucide-react";
 import { SinglePricingCard } from "@/components/ui/single-pricing-card";
-import dynamic from "next/dynamic";
-
-const GlobalSystemShaderBackdrop = dynamic(
-  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { ssr: false }
-);
+import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 
 export default function StandalonePricingPage() {
   const customTechnicalFeatures = [
@@ -50,8 +45,8 @@ export default function StandalonePricingPage() {
       {/* Background Lighting System */}
       <div className="absolute bg-cyan-500/5 blur-[160px] h-[600px] w-[600px] pointer-events-none top-1/4 z-0" />
 
-      {/* Global Shader Backdrop Canvas */}
-      <GlobalSystemShaderBackdrop />
+      {/* Cloudinary System Background Video Layer */}
+      <CloudinarySystemBackground />
 
       {/* Corporate High-Contrast Top Typographic Stack */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-14 flex flex-col items-center">

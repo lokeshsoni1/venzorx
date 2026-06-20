@@ -4,15 +4,7 @@
 import React, { useState, useCallback, useMemo, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const GlobalSystemShaderBackdrop = dynamic(
-  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { 
-    ssr: false,
-    loading: () => <div className="absolute inset-0 bg-[#030712] pointer-events-none" />
-  }
-);
+import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 
 interface FAQItemProps {
   question: string;
@@ -132,8 +124,8 @@ export default function StandaloneFAQPage() {
       {/* Background Light Shader */}
       <div className="absolute bg-emerald-500/5 blur-[160px] h-[550px] w-[550px] pointer-events-none top-1/4 z-0" />
 
-      {/* Global Shader Backdrop Canvas */}
-      <GlobalSystemShaderBackdrop />
+      {/* Cloudinary System Background Video Layer */}
+      <CloudinarySystemBackground />
 
       {/* INTRO BLOCK HEADINGS */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">

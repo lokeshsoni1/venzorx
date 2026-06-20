@@ -3,15 +3,7 @@
 
 import React from "react";
 import { MessageSquare, Globe, GitBranch } from "lucide-react";
-import dynamic from "next/dynamic";
-
-const GlobalSystemShaderBackdrop = dynamic(
-  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { 
-    ssr: false,
-    loading: () => <div className="absolute inset-0 bg-[#030712] pointer-events-none" />
-  }
-);
+import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 
 export default function StandaloneServicesPage() {
   return (
@@ -19,8 +11,8 @@ export default function StandaloneServicesPage() {
       {/* Neon Spectrum Shader */}
       <div className="absolute bg-emerald-500/5 blur-[160px] h-[600px] w-[600px] pointer-events-none top-1/4 z-0" />
 
-      {/* Global Shader Backdrop Canvas */}
-      <GlobalSystemShaderBackdrop />
+      {/* Cloudinary System Background Video Layer */}
+      <CloudinarySystemBackground />
 
       {/* TYPOGRAPHIC INTRO BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">

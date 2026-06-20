@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 export default function WhyChooseUs() {
   return (
-    <section className="w-full relative bg-[#030712] overflow-hidden antialiased">
+    <section className="w-full relative bg-transparent overflow-hidden antialiased">
       {/* Oil-Pastel Gradient Seamless Blend Correction */}
       <div className="bg-gradient-to-b from-[#030712] via-[#030712]/95 to-transparent absolute top-0 left-0 w-full h-[250px] pointer-events-none z-20 backdrop-blur-[1px]" />
 

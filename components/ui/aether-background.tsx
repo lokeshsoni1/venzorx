@@ -156,8 +156,7 @@ const AetherBackground: React.FC = () => {
         const animate = () => {
             if (!ctx) return;
             animationFrameId = requestAnimationFrame(animate);
-            ctx.fillStyle = '#030712';
-            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
             const len = particles.length;
             for (let i = 0; i < len; i++) {
@@ -198,7 +197,7 @@ const AetherBackground: React.FC = () => {
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 w-full h-full pointer-events-none z-[-1]"
-                style={{ background: '#030712' }}
+                style={{ background: 'transparent' }}
             />
         </div>
     );

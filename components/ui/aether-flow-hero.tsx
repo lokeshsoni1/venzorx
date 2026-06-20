@@ -142,9 +142,7 @@ const AetherFlowHero = () => {
         const animate = () => {
             if (!ctx) return;
             animationFrameId = requestAnimationFrame(animate);
-            // Set the background color inside the canvas draw loop
-            ctx.fillStyle = '#030712';
-            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();

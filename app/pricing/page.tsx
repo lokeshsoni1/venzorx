@@ -3,7 +3,12 @@
 import React from "react";
 import { ShieldCheck, Target, Terminal, Cpu, MessageSquareText } from "lucide-react";
 import { SinglePricingCard } from "@/components/ui/single-pricing-card";
-import { GlobalSystemShaderBackdrop } from "@/components/ui/global-system-shader-backdrop";
+import dynamic from "next/dynamic";
+
+const GlobalSystemShaderBackdrop = dynamic(
+  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
+  { ssr: false }
+);
 
 export default function StandalonePricingPage() {
   const customTechnicalFeatures = [
@@ -77,7 +82,7 @@ export default function StandalonePricingPage() {
           href: "https://calendly.com/venzorx-co/30min"
         }}
         testimonials={highTicketTestimonials}
-        className="bg-zinc-950/50 backdrop-blur-3xl"
+        className="bg-zinc-950/50 backdrop-blur-3xl transform-gpu backface-hidden will-change-transform translate-z-0"
       />
     </main>
   );

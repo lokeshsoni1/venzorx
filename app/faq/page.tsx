@@ -3,8 +3,13 @@
 
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { GlobalSystemShaderBackdrop } from "@/components/ui/global-system-shader-backdrop";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const GlobalSystemShaderBackdrop = dynamic(
+  () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
+  { ssr: false }
+);
 
 interface FAQItemProps {
   question: string;
@@ -14,8 +19,10 @@ interface FAQItemProps {
 }
 
 function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
+  const isActiveIndex = isOpen;
+
   return (
-    <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-zinc-700 transform-gpu backface-hidden will-change-transform">
+    <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-zinc-700 transform-gpu backface-hidden will-change-transform translate-z-0">
       <button
         onClick={onToggle}
         className="w-full py-6 px-8 flex justify-between items-center text-left text-white font-sans text-lg font-bold tracking-tight uppercase hover:bg-white/5 transition-colors duration-200 outline-none select-none"
@@ -30,10 +37,12 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            layout="position"
+            layoutDependency={isActiveIndex}
+            transition={{ type: "spring", stiffness: 380, damping: 35 }}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="px-8 pb-6 font-sans text-sm md:text-base font-normal text-zinc-400 leading-relaxed bg-transparent antialiased">
               {answer}
@@ -45,7 +54,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   );
 }
 
-export default function StandaloneFAQPage() {
+function FAQAccordionList() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
@@ -92,6 +101,27 @@ export default function StandaloneFAQPage() {
   ];
 
   return (
+    <div 
+      className="space-y-4 max-w-4xl w-full mx-auto relative z-30"
+      style={{ contain: 'layout paint style', contentVisibility: 'auto' }}
+    >
+      <LayoutGroup>
+        {faqs.map((faq, index) => (
+          <FAQItem
+            key={index}
+            question={faq.question}
+            answer={faq.answer}
+            isOpen={openIndex === index}
+            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+          />
+        ))}
+      </LayoutGroup>
+    </div>
+  );
+}
+
+export default function StandaloneFAQPage() {
+  return (
     <main className="w-full min-h-screen relative py-32 px-6 md:px-12 flex flex-col items-center justify-start bg-[#030712] antialiased select-none overflow-hidden">
       {/* Background Light Shader */}
       <div className="absolute bg-emerald-500/5 blur-[160px] h-[550px] w-[550px] pointer-events-none top-1/4 z-0" />
@@ -110,17 +140,7 @@ export default function StandaloneFAQPage() {
       </div>
 
       {/* DYNAMIC ACCORDION COMPONENT CONSTRAINTS */}
-      <div className="space-y-4 max-w-4xl w-full mx-auto relative z-30">
-        {faqs.map((faq, index) => (
-          <FAQItem
-            key={index}
-            question={faq.question}
-            answer={faq.answer}
-            isOpen={openIndex === index}
-            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-          />
-        ))}
-      </div>
+      <FAQAccordionList />
     </main>
   );
 }

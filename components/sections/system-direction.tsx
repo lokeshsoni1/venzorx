@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import SectionTwoWaveBackground from '@/components/ui/section-two-wave-background';
+import dynamic from 'next/dynamic';
+const SectionTwoWaveBackground = dynamic(() => import('@/components/ui/section-two-wave-background'), { ssr: false });
 
 export default function SystemDirection() {
   return (

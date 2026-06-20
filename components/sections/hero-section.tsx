@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AetherBackground from "@/components/ui/aether-background";
+import dynamic from "next/dynamic";
+const AetherBackground = dynamic(() => import("@/components/ui/aether-background"), { ssr: false });
 
 const ConcentricRingEmblem = () => (
   <motion.div

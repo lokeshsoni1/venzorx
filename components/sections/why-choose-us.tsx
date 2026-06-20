@@ -3,7 +3,12 @@
 import React from 'react';
 import { Zap, ShieldCheck, Activity, Globe } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
-import { GlobalSystemShaderBackdrop } from '@/components/ui/global-system-shader-backdrop';
+import dynamic from 'next/dynamic';
+
+const GlobalSystemShaderBackdrop = dynamic(
+  () => import('@/components/ui/global-system-shader-backdrop').then((mod) => mod.GlobalSystemShaderBackdrop),
+  { ssr: false }
+);
 
 export default function WhyChooseUs() {
   return (
@@ -22,10 +27,13 @@ export default function WhyChooseUs() {
           Why Choose Us
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full"
+          style={{ contain: 'layout paint style', contentVisibility: 'auto' }}
+        >
           
           {/* Spotlight Block 01 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10">
+          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10 transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <Zap className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">
@@ -38,7 +46,7 @@ export default function WhyChooseUs() {
           </GlowCard>
 
           {/* Spotlight Block 02 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10">
+          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10 transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <ShieldCheck className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">
@@ -51,7 +59,7 @@ export default function WhyChooseUs() {
           </GlowCard>
 
           {/* Spotlight Block 03 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10">
+          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10 transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <Activity className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">
@@ -64,7 +72,7 @@ export default function WhyChooseUs() {
           </GlowCard>
 
           {/* Spotlight Block 04 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10">
+          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] bg-zinc-900/40 border border-white/10 transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <Globe className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">

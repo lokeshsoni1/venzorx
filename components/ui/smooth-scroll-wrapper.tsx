@@ -2,8 +2,21 @@
 import { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 
+declare global {
+  interface Window {
+    __lenisInstance?: Lenis;
+  }
+}
+
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    // Single-instance enforcement to prevent multiple scroll listeners concurrently
+    if (typeof window !== "undefined") {
+      if (window.__lenisInstance) {
+        window.__lenisInstance.destroy();
+      }
+    }
+
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -12,6 +25,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       smoothWheel: true,
       wheelMultiplier: 1.0,
     });
+    
+    if (typeof window !== "undefined") {
+      window.__lenisInstance = lenis;
+    }
     
     let rafId: number;
     function raf(time: number) {
@@ -23,6 +40,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      if (typeof window !== "undefined" && window.__lenisInstance === lenis) {
+        window.__lenisInstance = undefined;
+      }
     };
   }, []);
   

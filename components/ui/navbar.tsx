@@ -17,7 +17,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl bg-zinc-950/40 backdrop-blur-md border border-white/5 px-8 py-3.5 rounded-full flex items-center justify-between shadow-[0_15px_50px_rgba(0,0,0,0.6)]">
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl bg-zinc-950/40 backdrop-blur-md border border-white/5 px-8 py-3.5 rounded-full flex items-center justify-between shadow-[0_15px_50px_rgba(0,0,0,0.6)] will-change-transform transform-gpu translate-z-0 preserve-3d">
       <div className="hidden md:flex items-center gap-8 font-mono text-[10px] tracking-[0.25em] font-bold uppercase">
         {navItems.map((item) => {
           const isActive = pathname === item.href;

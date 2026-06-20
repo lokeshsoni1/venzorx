@@ -29,6 +29,14 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     if (typeof window !== "undefined") {
       window.__lenisInstance = lenis;
     }
+
+    lenis.on('scroll', (e: any) => {
+      if (Math.abs(e.velocity) > 0.5) {
+        document.body.classList.add('is-scrolling');
+      } else {
+        document.body.classList.remove('is-scrolling');
+      }
+    });
     
     let rafId: number;
     function raf(time: number) {
@@ -53,6 +61,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       window.removeEventListener("wheel", handleGesture);
       window.removeEventListener("touchstart", handleGesture);
       window.removeEventListener("touchmove", handleGesture);
+      if (typeof document !== "undefined") {
+        document.body.classList.remove('is-scrolling');
+      }
       if (typeof window !== "undefined" && window.__lenisInstance === lenis) {
         window.__lenisInstance = undefined;
       }

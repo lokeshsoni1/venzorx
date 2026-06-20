@@ -110,7 +110,6 @@ const FAQAccordionList = memo(function FAQAccordionList() {
   return (
     <div 
       className="space-y-4 max-w-4xl w-full mx-auto relative z-30"
-      style={{ contain: 'layout paint style', contentVisibility: 'auto', containIntrinsicSize: 'auto 400px' }}
     >
       <LayoutGroup id="faq-matrix">
         {faqs.map((faq, index) => (

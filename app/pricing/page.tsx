@@ -82,7 +82,7 @@ export default function StandalonePricingPage() {
           href: "https://calendly.com/venzorx-co/30min"
         }}
         testimonials={highTicketTestimonials}
-        className="bg-zinc-950/50 backdrop-blur-3xl transform-gpu backface-hidden will-change-transform translate-z-0"
+        className="bg-zinc-950/50 backdrop-blur-3xl transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
       />
     </main>
   );

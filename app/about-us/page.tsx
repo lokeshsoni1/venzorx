@@ -32,10 +32,9 @@ export default function StandaloneAboutUsPage() {
       {/* 3-COLUMN STRUCTURED PERFORMANCE CARDS GRID */}
       <div 
         className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl w-full mx-auto relative z-30"
-        style={{ contain: 'layout paint style', contentVisibility: 'auto' }}
       >
         {/* CARD 01 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0">
+        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Clock className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">
@@ -48,7 +47,7 @@ export default function StandaloneAboutUsPage() {
         </div>
 
         {/* CARD 02 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0">
+        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Slash className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">
@@ -61,7 +60,7 @@ export default function StandaloneAboutUsPage() {
         </div>
 
         {/* CARD 03 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0">
+        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Terminal className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">

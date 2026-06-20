@@ -35,7 +35,6 @@ export default function StandaloneServicesPage() {
       {/* 3-CARD ASYMMETRIC HIERARCHY GRID (CENTER-FOCUS MATRICES) */}
       <div 
         className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl w-full mx-auto items-center relative z-30"
-        style={{ contain: 'layout paint style', contentVisibility: 'auto', containIntrinsicSize: 'auto 400px' }}
       >
         
         {/* CARD 01 // LEFT PANEL: AUTOMATED AI VOICE AGENTS */}

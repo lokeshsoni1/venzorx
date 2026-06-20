@@ -124,7 +124,6 @@ export default function StandaloneContactPage() {
       {/* THE GLASSMORPHIC TERMINAL FORM MATRIX CONTAINER */}
       <div 
         className="w-full max-w-xl mx-auto p-8 rounded-3xl border border-white/10 bg-zinc-900/40 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.7)] mb-12 relative z-10 transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
-        style={{ contain: 'layout paint style', contentVisibility: 'auto', containIntrinsicSize: 'auto 400px' }}
       >
         <ContactForm />
       </div>

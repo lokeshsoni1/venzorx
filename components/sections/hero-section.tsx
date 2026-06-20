@@ -44,7 +44,7 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: "easeOut" }}
-                className="text-3xl sm:text-5xl md:text-6xl font-sans font-black tracking-[0.5em] text-white uppercase select-none pointer-events-none text-center drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]"
+                className="text-3xl sm:text-5xl md:text-6xl font-sans font-black tracking-[0.5em] text-white uppercase select-none pointer-events-none text-center drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)] animate-hero-reveal"
                 style={{ fontFamily: "var(--font-stencil)", textIndent: "0.5em" }}
               >
                 VENZORX

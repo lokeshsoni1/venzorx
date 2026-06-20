@@ -36,16 +36,38 @@ const GlowCard: React.FC<GlowCardProps> = ({
   customSize = false
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const coordsRef = useRef({ x: -999, y: -999 });
+  const tickingRef = useRef(false);
 
-  // HYPER-LOCALIZED MOUSE TRACKING: Only fires callbacks on the actively hovered element card
+  const updateCardStyles = () => {
+    if (cardRef.current) {
+      cardRef.current.style.setProperty('--x', `${coordsRef.current.x}px`);
+      cardRef.current.style.setProperty('--y', `${coordsRef.current.y}px`);
+    }
+    tickingRef.current = false;
+  };
+
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
     
-    cardRef.current.style.setProperty('--x', `${x.toFixed(1)}px`);
-    cardRef.current.style.setProperty('--y', `${y.toFixed(1)}px`);
+    // Hyper-localized delta tracking from the parent element box bounding layout matrix
+    const rect = cardRef.current.getBoundingClientRect();
+    coordsRef.current.x = e.clientX - rect.left;
+    coordsRef.current.y = e.clientY - rect.top;
+
+    // Asynchronous RequestAnimationFrame execution batching to eliminate layout thrashing
+    if (!tickingRef.current) {
+      requestAnimationFrame(updateCardStyles);
+      tickingRef.current = true;
+    }
+  };
+
+  const handlePointerLeave = () => {
+    coordsRef.current = { x: -999, y: -999 };
+    if (cardRef.current) {
+      cardRef.current.style.setProperty('--x', '-999px');
+      cardRef.current.style.setProperty('--y', '-999px');
+    }
   };
 
   const { base, spread } = glowColorMap[glowColor];
@@ -67,7 +89,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       backgroundColor: 'var(--backdrop)',
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative',
-      contain: 'layout paint',
+      contain: 'layout paint style', // Locks complete CSS isolation bounds inside browser repaint trees
     };
 
     if (width !== undefined) baseStyles.width = typeof width === 'number' ? `${width}px` : width;
@@ -108,14 +130,15 @@ const GlowCard: React.FC<GlowCardProps> = ({
         ref={cardRef}
         data-glow
         onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
         style={getInlineStyles()}
         className={`
           ${getSizeClasses()}
           ${!customSize ? 'aspect-[3/4]' : ''}
           rounded-2xl relative grid grid-rows-[1fr_auto] p-4 gap-4 backdrop-blur-md
           transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
-          transform-gpu backface-hidden will-change-transform
-          hover:scale-[1.035] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6)]
+          transform-gpu backface-hidden will-change-[transform,opacity,box-shadow]
+          hover:scale-[1.035] hover:shadow-[0_25px_50px_rgba(0,0,0,0.6)]
           ${className}
         `}
       >

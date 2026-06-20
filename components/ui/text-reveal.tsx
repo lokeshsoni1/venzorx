@@ -12,7 +12,6 @@ interface TextRevealByWordProps {
 const TextRevealByWord: FC<TextRevealByWordProps> = ({ text, className }) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  // Precise bounding box offset calculation tracking to avoid global empty window padding scrolls
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
@@ -23,7 +22,8 @@ const TextRevealByWord: FC<TextRevealByWordProps> = ({ text, className }) => {
   return (
     <div 
       ref={targetRef} 
-      className={cn("relative z-10 w-full bg-transparent py-4 my-0 select-none overflow-hidden", className)}
+      className={cn("relative z-10 w-full bg-transparent py-4 my-0 select-none overflow-hidden transform-gpu", className)}
+      style={{ contain: "layout paint" }}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-center bg-transparent py-2">
         <p className="flex flex-wrap justify-center text-center font-sans text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-normal text-white/20 leading-[1.1] transform-gpu backface-hidden">
@@ -51,8 +51,8 @@ interface WordProps {
 const Word: FC<WordProps> = ({ children, progress, range }) => {
   const opacity = useTransform(progress, range, [0.15, 1]);
   return (
-    <span className="relative mx-2 my-1 inline-block whitespace-nowrap">
-      <span className="absolute opacity-5 text-white/5 transform-gpu">{children}</span>
+    <span className="relative mx-2 my-1 inline-block whitespace-nowrap transform-gpu">
+      <span className="absolute opacity-5 text-white/5 transform-gpu backface-hidden">{children}</span>
       <motion.span
         style={{ opacity: opacity }}
         className="text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.15)] transform-gpu backface-hidden will-change-[opacity]"

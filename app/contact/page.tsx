@@ -1,28 +1,42 @@
 // @/app/contact/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { MessageSquare, MessageCircle, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const GlobalSystemShaderBackdrop = dynamic(
   () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-[#030712] pointer-events-none" />
+  }
 );
 
-function ContactForm() {
+const ContactForm = memo(function ContactForm() {
   const [formData, setFormData] = useState({
     identity: "",
     niche: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    // Terminal input handled or logged for representation
     console.log("Terminal session tracking data submitted:", formData);
-  };
+  }, [formData]);
+
+  const handleIdentityChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, identity: e.target.value }));
+  }, []);
+
+  const handleNicheChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, niche: e.target.value }));
+  }, []);
+
+  const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, message: e.target.value }));
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
@@ -31,8 +45,8 @@ function ContactForm() {
         type="text"
         placeholder="Client Identity / Full Name"
         value={formData.identity}
-        onChange={(e) => setFormData({ ...formData, identity: e.target.value })}
-        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-4 transition-colors transform-gpu backface-hidden will-change-transform translate-z-0"
+        onChange={handleIdentityChange}
+        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-4 transition-colors transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
         required
       />
 
@@ -41,8 +55,8 @@ function ContactForm() {
         type="text"
         placeholder="Business Name / Operational Niche"
         value={formData.niche}
-        onChange={(e) => setFormData({ ...formData, niche: e.target.value })}
-        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-4 transition-colors transform-gpu backface-hidden will-change-transform translate-z-0"
+        onChange={handleNicheChange}
+        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-4 transition-colors transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
         required
       />
 
@@ -51,8 +65,8 @@ function ContactForm() {
         placeholder="Describe Your Architectural Bottlenecks / Message"
         rows={4}
         value={formData.message}
-        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-6 resize-none transition-colors transform-gpu backface-hidden will-change-transform translate-z-0"
+        onChange={handleMessageChange}
+        className="bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:border-cyan-400/70 outline-none text-sm w-full mb-6 resize-none transition-colors transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
         required
       />
 
@@ -65,7 +79,7 @@ function ContactForm() {
           href="https://calendly.com/venzorx-co/30min"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-white font-mono text-xs tracking-wider font-bold uppercase rounded-xl py-4 transition-all duration-300 shadow-[0_10px_25px_rgba(6,182,212,0.15)] text-center cursor-pointer transform-gpu backface-hidden will-change-transform translate-z-0"
+          className="flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-white font-mono text-xs tracking-wider font-bold uppercase rounded-xl py-4 transition-all duration-300 shadow-[0_10px_25px_rgba(6,182,212,0.15)] text-center cursor-pointer transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
         >
           <Calendar className="h-4 w-4 shrink-0" />
           <span>BOOK ARCHITECTURE CALL</span>
@@ -78,7 +92,7 @@ function ContactForm() {
           href="https://wa.me/918595598458"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 border border-white/10 bg-zinc-950/40 hover:bg-zinc-950/80 text-white font-mono text-xs tracking-wider font-bold uppercase rounded-xl py-4 transition-all duration-300 text-center cursor-pointer transform-gpu backface-hidden will-change-transform translate-z-0"
+          className="flex items-center justify-center gap-2 border border-white/10 bg-zinc-950/40 hover:bg-zinc-950/80 text-white font-mono text-xs tracking-wider font-bold uppercase rounded-xl py-4 transition-all duration-300 text-center cursor-pointer transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
         >
           <MessageCircle className="h-4 w-4 text-green-400 shrink-0" />
           <span>CONNECT VIA WHATSAPP</span>
@@ -86,7 +100,7 @@ function ContactForm() {
       </div>
     </form>
   );
-}
+});
 
 export default function StandaloneContactPage() {
   return (
@@ -109,8 +123,8 @@ export default function StandaloneContactPage() {
 
       {/* THE GLASSMORPHIC TERMINAL FORM MATRIX CONTAINER */}
       <div 
-        className="w-full max-w-xl mx-auto p-8 rounded-3xl border border-white/10 bg-zinc-900/40 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.7)] mb-12 relative z-10 transform-gpu backface-hidden will-change-transform translate-z-0"
-        style={{ contain: 'layout paint style', contentVisibility: 'auto' }}
+        className="w-full max-w-xl mx-auto p-8 rounded-3xl border border-white/10 bg-zinc-900/40 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.7)] mb-12 relative z-10 transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
+        style={{ contain: 'layout paint style', contentVisibility: 'auto', containIntrinsicSize: 'auto 400px' }}
       >
         <ContactForm />
       </div>

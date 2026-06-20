@@ -1,14 +1,17 @@
 // @/app/faq/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const GlobalSystemShaderBackdrop = dynamic(
   () => import("@/components/ui/global-system-shader-backdrop").then((mod) => mod.GlobalSystemShaderBackdrop),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-[#030712] pointer-events-none" />
+  }
 );
 
 interface FAQItemProps {
@@ -18,11 +21,11 @@ interface FAQItemProps {
   onToggle: () => void;
 }
 
-function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
+const FAQItem = memo(function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   const isActiveIndex = isOpen;
 
   return (
-    <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-zinc-700 transform-gpu backface-hidden will-change-transform translate-z-0">
+    <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-zinc-700 transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
       <button
         onClick={onToggle}
         className="w-full py-6 px-8 flex justify-between items-center text-left text-white font-sans text-lg font-bold tracking-tight uppercase hover:bg-white/5 transition-colors duration-200 outline-none select-none"
@@ -39,7 +42,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
           <motion.div
             layout="position"
             layoutDependency={isActiveIndex}
-            transition={{ type: "spring", stiffness: 380, damping: 35 }}
+            transition={{ type: "spring", stiffness: 400, damping: 38, mass: 0.8 }}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -52,12 +55,16 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
       </AnimatePresence>
     </div>
   );
-}
+});
 
-function FAQAccordionList() {
+const FAQAccordionList = memo(function FAQAccordionList() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqs = [
+  const handleToggle = useCallback((index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  }, []);
+
+  const faqs = useMemo(() => [
     {
       question: "Why should I pay you a premium when I can get a website for a fraction of the cost on WordPress or Wix?",
       answer: "Cheap builders give you a slow, generic site full of plugin glitches that crashes under traffic and looks exactly like your competitors. You pay us for custom, hardcoded speed that converts visitors into paying customers and builds actual business authority.",
@@ -98,27 +105,27 @@ function FAQAccordionList() {
       question: "What do you need from my side to start, and how much of my time will this take?",
       answer: "We only need your business parameters, primary goals, and branding assets. We won't waste your time with endless back-and-forth emails. We manage the heavy lifting so you can focus on running your business.",
     },
-  ];
+  ], []);
 
   return (
     <div 
       className="space-y-4 max-w-4xl w-full mx-auto relative z-30"
-      style={{ contain: 'layout paint style', contentVisibility: 'auto' }}
+      style={{ contain: 'layout paint style', contentVisibility: 'auto', containIntrinsicSize: 'auto 400px' }}
     >
-      <LayoutGroup>
+      <LayoutGroup id="faq-matrix">
         {faqs.map((faq, index) => (
           <FAQItem
             key={index}
             question={faq.question}
             answer={faq.answer}
             isOpen={openIndex === index}
-            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+            onToggle={() => handleToggle(index)}
           />
         ))}
       </LayoutGroup>
     </div>
   );
-}
+});
 
 export default function StandaloneFAQPage() {
   return (

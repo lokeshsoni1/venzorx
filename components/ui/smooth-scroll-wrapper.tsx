@@ -37,9 +37,22 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     }
     
     rafId = requestAnimationFrame(raf);
+
+    // Passive low-level event bindings to keep scroll gesture loops independent of layout threads
+    const passiveOpts = { passive: true };
+    const handleGesture = () => {};
+    window.addEventListener("scroll", handleGesture, passiveOpts);
+    window.addEventListener("wheel", handleGesture, passiveOpts);
+    window.addEventListener("touchstart", handleGesture, passiveOpts);
+    window.addEventListener("touchmove", handleGesture, passiveOpts);
+
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleGesture);
+      window.removeEventListener("wheel", handleGesture);
+      window.removeEventListener("touchstart", handleGesture);
+      window.removeEventListener("touchmove", handleGesture);
       if (typeof window !== "undefined" && window.__lenisInstance === lenis) {
         window.__lenisInstance = undefined;
       }

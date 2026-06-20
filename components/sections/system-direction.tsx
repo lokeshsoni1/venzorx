@@ -5,12 +5,9 @@ import { TextRevealByWord } from "@/components/ui/text-reveal";
 
 export default function SystemDirection() {
   return (
-    <section className="w-full relative py-44 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased tracking-tight">
+    <section className="bg-transparent relative w-full overflow-hidden py-44 px-6 md:px-12 flex flex-col items-center justify-center antialiased tracking-tight">
       {/* Cloudinary System Background Video Layer */}
       <CloudinarySystemBackground />
-
-      {/* Seamless Inter-Section Pastel Blend Mask */}
-      <div className="bg-gradient-to-b from-[#030712] via-[#030712]/90 to-transparent absolute top-0 left-0 w-full h-[260px] pointer-events-none z-20 backdrop-blur-[1px]" />
 
       {/* Typographic Text Stack Layer */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-6xl mx-auto w-full text-center">

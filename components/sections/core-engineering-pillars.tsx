@@ -6,7 +6,7 @@ import { GlowCard } from '@/components/ui/spotlight-card';
 
 export default function CoreEngineeringPillars() {
   return (
-    <section className="w-full relative pt-28 pb-16 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased">
+    <section className="bg-transparent relative w-full overflow-hidden pt-28 pb-16 px-6 md:px-12 flex flex-col items-center justify-center antialiased">
       {/* Radial Backdrop Highlight */}
       <div className="absolute bg-zinc-700/5 blur-[140px] h-[600px] w-[600px] pointer-events-none top-0" />
 

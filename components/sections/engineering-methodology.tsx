@@ -6,7 +6,7 @@ import { GlowCard } from '@/components/ui/spotlight-card';
 
 export default function EngineeringMethodology() {
   return (
-    <section className="w-full relative pt-32 pb-16 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased">
+    <section className="bg-transparent relative w-full overflow-hidden pt-32 pb-16 px-6 md:px-12 flex flex-col items-center justify-center antialiased">
       {/* Radial Mesh Shader Glow */}
       <div className="absolute bg-cyan-500/5 blur-[150px] h-[600px] w-[600px] pointer-events-none top-0" />
 

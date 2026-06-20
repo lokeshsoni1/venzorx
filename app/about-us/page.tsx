@@ -4,6 +4,7 @@
 import React from "react";
 import { Clock, Slash, Terminal } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 export default function StandaloneAboutUsPage() {
   return (
@@ -29,7 +30,7 @@ export default function StandaloneAboutUsPage() {
         className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl w-full mx-auto relative z-30"
       >
         {/* CARD 01 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
+        <GlowCard glowColor="orange" customSize={true} className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Clock className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">
@@ -39,10 +40,10 @@ export default function StandaloneAboutUsPage() {
               No arbitrary delays or missed scope milestones. We respect pre-planned technical roadmaps, locking down stable functional modules on target timelines.
             </p>
           </div>
-        </div>
+        </GlowCard>
 
         {/* CARD 02 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
+        <GlowCard glowColor="orange" customSize={true} className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Slash className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">
@@ -52,10 +53,10 @@ export default function StandaloneAboutUsPage() {
               We do not leverage clunky drag-and-drop builders or performance-choking plugins. Every interactive component is hardcoded via clean TypeScript layout loops.
             </p>
           </div>
-        </div>
+        </GlowCard>
 
         {/* CARD 03 */}
-        <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
+        <GlowCard glowColor="orange" customSize={true} className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl flex flex-col justify-between text-left shadow-[0_20px_50px_rgba(0,0,0,0.6)] min-h-[280px] transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
           <div>
             <Terminal className="text-cyan-400 h-6 w-6 mb-5" />
             <h2 className="text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">
@@ -65,7 +66,7 @@ export default function StandaloneAboutUsPage() {
               Should any runtime exception error or platform defect materialize post-deployment, our team initializes crash-repair frameworks to optimize the stack immediately.
             </p>
           </div>
-        </div>
+        </GlowCard>
       </div>
     </main>
   );

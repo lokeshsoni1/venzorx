@@ -9,6 +9,8 @@ import type { LucideIcon } from "lucide-react";
 import { Star } from "lucide-react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
+import { GlowCard } from "@/components/ui/spotlight-card";
+
 export interface Testimonial {
   id: number;
   name: string;
@@ -78,7 +80,7 @@ export function SinglePricingCard({
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <Card className="overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-2xl relative group rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.8)]">
+        <GlowCard glowColor="purple" customSize={true} className="overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-2xl relative group rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.8)]">
           <div className="flex flex-col md:flex-row">
             
             {/* Left Box: Value Proposition & CTA */}
@@ -137,7 +139,7 @@ export function SinglePricingCard({
                 <div className="grid grid-cols-1 gap-3.5">
                   {features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500/5 border border-cyan-500/10 shrink-0">
+                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500/5 border border-cyan-500/10 shrink-0">
                         <FeaturesIcon className="h-2.5 w-2.5 text-cyan-400" />
                       </div>
                       <span className="text-zinc-300 text-sm font-normal tracking-wide">{feature.text}</span>
@@ -182,7 +184,7 @@ export function SinglePricingCard({
             </div>
 
           </div>
-        </Card>
+        </GlowCard>
       </motion.div>
     </div>
   );

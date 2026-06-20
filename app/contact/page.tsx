@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 export default function StandaloneContactMonolithPage() {
   // 1. Unified state handler tracking client information variables
@@ -72,8 +73,13 @@ export default function StandaloneContactMonolithPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-xl mx-auto p-8 rounded-3xl border border-white/10 bg-zinc-900/40 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.7)] relative z-10"
+        className="w-full max-w-xl mx-auto relative z-10"
       >
+        <GlowCard 
+          glowColor="green"
+          customSize={true}
+          className="w-full p-8 rounded-3xl border border-white/10 bg-zinc-900/40 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.7)]"
+        >
         <div className="space-y-5 text-left">
           <div>
             <label className="block text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2 pl-1">Client Identity / Name</label>
@@ -131,6 +137,7 @@ export default function StandaloneContactMonolithPage() {
             </Button>
           </div>
         </div>
+        </GlowCard>
       </motion.div>
     </main>
   );

@@ -21,7 +21,7 @@ export default function WhyChooseUs() {
         >
           
           {/* Spotlight Block 01 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] transform-gpu backface-hidden will-change-transform translate-z-0">
+          <GlowCard glowColor="green" customSize={true} className="w-full min-h-[340px] transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <Zap className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">
@@ -47,7 +47,7 @@ export default function WhyChooseUs() {
           </GlowCard>
 
           {/* Spotlight Block 03 */}
-          <GlowCard glowColor="blue" customSize={true} className="w-full min-h-[340px] transform-gpu backface-hidden will-change-transform translate-z-0">
+          <GlowCard glowColor="green" customSize={true} className="w-full min-h-[340px] transform-gpu backface-hidden will-change-transform translate-z-0">
             <div className="flex flex-col justify-start h-full">
               <Activity className="text-cyan-400 h-6 w-6 mb-6" />
               <h3 className="text-xl font-black text-white tracking-tight mb-4 uppercase font-sans select-none">

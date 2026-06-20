@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 const AetherBackground = dynamic(() => import("@/components/ui/aether-background"), { ssr: false });
@@ -27,26 +27,6 @@ const ConcentricRingEmblem = () => (
 );
 
 export default function HeroSection() {
-  const [isMobileGlowActive, setIsMobileGlowActive] = useState(false);
-
-  useEffect(() => {
-    const triggerInitialGlow = () => {
-      if (window.innerWidth < 768) {
-        setIsMobileGlowActive(true);
-      }
-      window.removeEventListener("click", triggerInitialGlow);
-      window.removeEventListener("touchstart", triggerInitialGlow);
-    };
-
-    window.addEventListener("click", triggerInitialGlow, { passive: true });
-    window.addEventListener("touchstart", triggerInitialGlow, { passive: true });
-    
-    return () => {
-      window.removeEventListener("click", triggerInitialGlow);
-      window.removeEventListener("touchstart", triggerInitialGlow);
-    };
-  }, []);
-
   return (
     <section id="home" className="h-screen w-full relative overflow-hidden bg-transparent z-10">
       <div className="relative w-full h-full overflow-hidden">
@@ -59,12 +39,11 @@ export default function HeroSection() {
             <div className="relative flex items-center justify-center transform-gpu backface-hidden z-10">
               {/* Dynamic Blue Glow Shadow Layer Block Mask */}
               <div 
-                className={`
-                  absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu transition-opacity duration-1000 ease-out
-                  md:opacity-100
-                  ${isMobileGlowActive ? "opacity-100 scale-105" : "max-md:opacity-0 scale-95"}
-                `}
-                style={{ willChange: "opacity, transform" }}
+                className="absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu max-md:opacity-100 max-md:scale-105 md:opacity-100"
+                style={{ 
+                  willChange: "transform, opacity",
+                  contain: "layout paint style"
+                }}
               />
 
               <ConcentricRingEmblem />

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Search, GitBranch, Terminal, Rocket } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
+import { GradientText } from '@/components/ui/gradient-text';
 
 export default function EngineeringMethodology() {
   return (
@@ -13,7 +14,7 @@ export default function EngineeringMethodology() {
       {/* Intro Header */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-5xl mx-auto w-full text-center">
         <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase">
-          THE PRODUCTION PIPELINE CORE.
+          THE <GradientText>PRODUCTION PIPELINE</GradientText> CORE.
         </h2>
         <p className="text-base md:text-xl font-medium tracking-wide text-zinc-400 text-center max-w-3xl leading-relaxed">
           De-risked execution. Precision engineering from architecture layout blueprints to active market deployment.

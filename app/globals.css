@@ -6,6 +6,58 @@
   --foreground: #f3f4f6;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
   --font-stencil: 'Orbitron', sans-serif;
+  --color-1: 330 100% 40%; /* Dark Neon Pink */
+  --color-2: 140 100% 55%; /* Bright Electric Green */
+  --color-3: 210 100% 30%; /* Deep Neon Blue */
+  --color-4: 60 100% 70%;  /* Light Neon Yellow */
+  --color-5: 295 100% 45%; /* Dark Neon Purple */
+  --brand: 160 100% 50%;   /* Premium Electric Emerald/Cyan Core */
+}
+
+@theme {
+  @keyframes gradient-border {
+    0%, 100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.95);
+    }
+  }
+  @keyframes gradient-1 {
+    0%, 100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(50px, 50px);
+    }
+  }
+  @keyframes gradient-2 {
+    0%, 100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(-50px, 50px);
+    }
+  }
+  @keyframes gradient-3 {
+    0%, 100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(50px, -50px);
+    }
+  }
+  @keyframes gradient-4 {
+    0%, 100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(-50px, -50px);
+    }
+  }
 }
 
 body {

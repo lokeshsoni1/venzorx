@@ -4,10 +4,11 @@
 import React from "react";
 import { MessageSquare, Globe, GitBranch } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
+import { GradientText } from "@/components/ui/gradient-text";
 
 export default function StandaloneServicesPage() {
   return (
-    <main className="w-full min-h-screen relative py-32 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-[#030712] antialiased select-none">
+    <main className="w-full min-h-screen relative py-32 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased select-none">
       {/* Neon Spectrum Shader */}
       <div className="absolute bg-emerald-500/5 blur-[160px] h-[600px] w-[600px] pointer-events-none top-1/4 z-0" />
 
@@ -17,7 +18,7 @@ export default function StandaloneServicesPage() {
       {/* TYPOGRAPHIC INTRO BLOCK */}
       <div className="relative z-10 text-center max-w-4xl mx-auto mb-24 flex flex-col items-center">
         <h1 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase z-10">
-          OUR ENGINEERING DEPLOYMENTS.
+          OUR <GradientText>ENGINEERING DEPLOYMENTS</GradientText>.
         </h1>
         <p className="text-sm md:text-lg font-mono text-zinc-400 text-center tracking-widest uppercase z-10">
           Active High-Performance Deliverables and Upcoming Automation Roadmap.

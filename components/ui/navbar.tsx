@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "HOME", href: "/" },
@@ -36,14 +37,14 @@ export function Navbar() {
           );
         })}
       </div>
-      <a
-        href="https://calendly.com/venzorx-co/30min"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-emerald-500 hover:bg-emerald-400 text-black border border-emerald-400/30 font-mono font-black text-xs tracking-widest px-4 py-2 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] transform-gpu hover:scale-[1.03] select-none whitespace-nowrap"
+      <Button 
+        className="relative bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-400 text-black font-mono font-black text-xs tracking-widest px-6 py-2.5 rounded-xl transition-all duration-500 ease-out shadow-[0_0_30px_rgba(16,185,129,0.45)] border border-emerald-300/40 transform-gpu hover:scale-[1.04] hover:shadow-[0_0_45px_rgba(6,182,212,0.65)] hover:brightness-110 active:scale-[0.98] select-none whitespace-nowrap"
+        asChild
       >
-        CONNECT DIRECTLY ON A CALL WITH VENZORX
-      </a>
+        <a href="https://calendly.com/venzorx-co/30min" target="_blank" rel="noopener noreferrer">
+          CONNECT DIRECTLY ON A CALL WITH VENZORX
+        </a>
+      </Button>
     </nav>
   );
 }

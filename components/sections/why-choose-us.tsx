@@ -3,7 +3,7 @@
 import React from 'react';
 import { Zap, ShieldCheck, Activity, Globe } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
-import dynamic from 'next/dynamic';
+import { GradientText } from '@/components/ui/gradient-text';
 
 export default function WhyChooseUs() {
   return (
@@ -14,7 +14,7 @@ export default function WhyChooseUs() {
         
         {/* Why Choose Us Heading */}
         <h2 className="text-3xl md:text-5xl font-black text-white text-center mb-16 tracking-normal uppercase select-none">
-          Why Choose Us
+          Why <GradientText>Choose Us</GradientText>
         </h2>
 
         <div 

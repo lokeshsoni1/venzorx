@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { GradientText } from "@/components/ui/gradient-text";
 
 // ============================================================================
 // 1. DYNAMIC SYSTEM COMPONENT DATA MATRIX (10 HIGH-TICKET GLOBAL REVIEWS)
@@ -157,7 +158,7 @@ export default function SystemIntegrationValidationSection() {
       {/* Typography Header Stack */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center mb-16 max-w-5xl mx-auto w-full">
         <h2 className="text-4xl md:text-6xl font-black text-white tracking-normal uppercase font-sans mb-4">
-          SYSTEM INTEGRATION VALIDATION
+          SYSTEM <GradientText>INTEGRATION VALIDATION</GradientText>
         </h2>
         <p className="text-sm md:text-lg font-mono text-cyan-400 tracking-widest uppercase">
           10 Global Enterprises. Zero Fault Vectors. Full Operational Autonomy.

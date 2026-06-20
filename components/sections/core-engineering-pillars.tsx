@@ -3,6 +3,7 @@
 import React from 'react';
 import { Layers, Cpu } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
+import { GradientText } from '@/components/ui/gradient-text';
 
 export default function CoreEngineeringPillars() {
   return (
@@ -13,7 +14,7 @@ export default function CoreEngineeringPillars() {
       {/* Intro Header */}
       <div className="relative z-30 flex flex-col items-center justify-center max-w-5xl mx-auto w-full text-center">
         <h2 className="text-4xl md:text-7xl font-black text-white text-center tracking-normal leading-none mb-6 font-sans uppercase">
-          OUR CORE ENGINEERING SYSTEMS.
+          OUR CORE <GradientText>ENGINEERING SYSTEMS</GradientText>.
         </h2>
         <span className="text-base md:text-xl font-medium tracking-widest text-cyan-400 text-center uppercase font-mono">
           Two Pillars. One Overriding Objective: Absolute Market Dominance.

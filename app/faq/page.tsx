@@ -20,7 +20,7 @@ const FAQItem = memo(function FAQItem({ question, answer, isOpen, onToggle }: FA
     <div className="bg-zinc-900/40 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-zinc-700 transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d">
       <button
         onClick={onToggle}
-        className="w-full py-6 px-8 flex justify-between items-center text-left text-white font-sans text-lg font-bold tracking-tight uppercase hover:bg-white/5 transition-colors duration-200 outline-none select-none"
+        className="w-full py-6 px-8 flex justify-between items-center text-left text-white font-sans text-lg font-semibold tracking-normal hover:bg-white/5 transition-colors duration-200 outline-none select-none"
       >
         <span>{question}</span>
         <ChevronDown

@@ -3,6 +3,7 @@ import { Architects_Daughter, Geist, Geist_Mono } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-wrapper";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
+import { PageTransition } from "@/components/ui/page-transition";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -50,6 +51,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SmoothScrollProvider>
           <Navbar />
+          <PageTransition />
           {children}
           <Footer />
         </SmoothScrollProvider>
@@ -57,3 +59,4 @@ export default function RootLayout({
     </html>
   );
 }
+

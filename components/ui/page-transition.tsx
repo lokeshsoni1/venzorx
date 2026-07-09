@@ -16,6 +16,7 @@ export function PageTransition() {
   const [isPending, startTransition] = useTransition();
 
   // Animation lifecycle states: 'idle' | 'phase1' | 'phase2' | 'phase3'
+  // Initialized to 'idle' but remains mounted to pre-warm the GPU layout compilation
   const [phase, setPhase] = useState<"idle" | "phase1" | "phase2" | "phase3">("idle");
   const [targetUrl, setTargetUrl] = useState<string | null>(null);
 
@@ -91,91 +92,95 @@ export function PageTransition() {
     }
   }, [phase, targetUrl, router]);
 
-  if (phase === "idle") return null;
+  // Determine visibility states for silent warm-starting
+  const isIdle = phase === "idle";
 
   return (
-    <AnimatePresence>
-      <div 
-        className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden select-none"
+    <div 
+      className="fixed inset-0 z-[9999] overflow-hidden select-none transition-opacity duration-300"
+      style={{
+        opacity: isIdle ? 0 : 1,
+        pointerEvents: isIdle ? "none" : "auto",
+        transform: "translate3d(0, 0, 0)",
+        WebkitTransform: "translate3d(0, 0, 0)",
+        willChange: "transform, opacity",
+      }}
+    >
+      {/* Background Overlay Canvas */}
+      <motion.div
+        initial={{ y: "-100%" }}
+        animate={
+          phase === "phase1"
+            ? { y: "0%" }
+            : phase === "phase2"
+            ? { y: "0%" }
+            : { y: "-100%" }
+        }
+        transition={
+          phase === "phase1"
+            ? { duration: 0.50, ease: [0.16, 1, 0.3, 1] }
+            : phase === "phase3"
+            ? { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+            : { duration: 0 }
+        }
+        onAnimationComplete={() => {
+          // Hook directly into the Framer Motion onAnimationComplete hook to trigger route push
+          // ONLY after the dark panel reaches exactly y: 0px (100% viewport coverage)
+          if (phase === "phase1") {
+            setPhase("phase2");
+            if (targetUrl) {
+              startTransition(() => {
+                router.push(targetUrl);
+              });
+            }
+          }
+        }}
+        className="absolute inset-0 w-full h-full"
         style={{
+          backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           transform: "translate3d(0, 0, 0)",
-          willChange: "transform, opacity",
+          WebkitTransform: "translate3d(0, 0, 0)",
+          willChange: "transform",
         }}
       >
-        {/* Background Overlay Canvas */}
-        <motion.div
-          initial={{ y: "-100%" }}
-          animate={
-            phase === "phase1"
-              ? { y: "0%" }
-              : phase === "phase2"
-              ? { y: "0%" }
-              : { y: "-100%" }
-          }
-          transition={
-            phase === "phase1"
-              ? { duration: 0.50, ease: [0.16, 1, 0.3, 1] }
-              : phase === "phase3"
-              ? { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
-              : { duration: 0 }
-          }
-          onAnimationComplete={() => {
-            // Hook directly into the Framer Motion onAnimationComplete hook to trigger route push
-            // ONLY after the dark panel reaches exactly y: 0px (100% viewport coverage)
-            if (phase === "phase1") {
-              setPhase("phase2");
-              if (targetUrl) {
-                startTransition(() => {
-                  router.push(targetUrl);
-                });
-              }
-            }
-          }}
-          className="absolute inset-0 w-full h-full pointer-events-auto"
-          style={{
-            backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            transform: "translate3d(0, 0, 0)",
-            willChange: "transform",
-          }}
-        >
-          {/* Centered Brand Text Container */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-full max-w-4xl px-4 flex flex-col items-center justify-center">
-              {/* Vertical alignment calibration: brand text sits perfectly underneath/around eyes and mouth zone */}
-              <div className="mt-[22%] md:mt-[15%]">
-                <AnimatePresence>
-                  {phase === "phase2" && (
-                    <motion.h1
-                      initial={{ scale: 0.4, opacity: 0 }}
-                      animate={{
-                        scale: [0.4, 1.2, 1.0],
-                        opacity: [0, 1, 1],
-                      }}
-                      exit={{ opacity: 0 }}
-                      transition={{
-                        duration: 0.55,
-                        times: [0, 0.63, 1.0], // Scales to peak around 350ms, then holds
-                        ease: "easeOut",
-                      }}
-                      className={`${syne.variable} font-syne font-black text-white text-6xl sm:text-7xl md:text-9xl uppercase select-none`}
-                      style={{
-                        letterSpacing: "0.06em",
-                        transform: "translate3d(0, 0, 0)",
-                        willChange: "transform, opacity",
-                        filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.95)) drop-shadow(0 4px 6px rgba(0,0,0,0.8))",
-                      }}
-                    >
-                      venzorX
-                    </motion.h1>
-                  )}
-                </AnimatePresence>
-              </div>
+        {/* Centered Brand Text Container */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-full max-w-4xl px-4 flex flex-col items-center justify-center">
+            {/* Vertical alignment calibration: brand text sits perfectly underneath/around eyes and mouth zone */}
+            <div className="mt-[22%] md:mt-[15%]">
+              <AnimatePresence>
+                {phase === "phase2" && (
+                  <motion.h1
+                    initial={{ scale: 0.4, opacity: 0 }}
+                    animate={{
+                      scale: [0.4, 1.2, 1.0],
+                      opacity: [0, 1, 1],
+                    }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: 0.55,
+                      times: [0, 0.63, 1.0], // Scales to peak around 350ms, then holds
+                      ease: "easeOut",
+                    }}
+                    className={`${syne.variable} font-syne font-black text-white text-6xl sm:text-7xl md:text-9xl uppercase select-none`}
+                    style={{
+                      letterSpacing: "0.06em",
+                      transform: "translate3d(0, 0, 0)",
+                      WebkitTransform: "translate3d(0, 0, 0)",
+                      willChange: "transform, opacity",
+                      filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.95)) drop-shadow(0 4px 6px rgba(0,0,0,0.8))",
+                    }}
+                  >
+                    venzorX
+                  </motion.h1>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+        </div>
+      </motion.div>
+    </div>
   );
 }

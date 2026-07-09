@@ -48,6 +48,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${architectsDaughter.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preload" as="image" href="https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png" />
+      </head>
       <body className="min-h-full flex flex-col">
         <SmoothScrollProvider>
           <Navbar />

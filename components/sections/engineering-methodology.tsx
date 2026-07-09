@@ -1,20 +1,30 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Search, GitBranch, Terminal, Rocket } from 'lucide-react';
+import { MobileScrollHardLockPortal } from '@/components/ui/MobileScrollHardLockPortal';
 
 export default function EngineeringMethodology() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Set up scroll tracking over 400vh of space
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  // Screen Matrix Detection: Validate <= 1024px and touch capability
+  useEffect(() => {
+    const checkDevice = () => {
+      const matchViewport = window.innerWidth <= 1024;
+      const matchTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      setIsMobile(matchViewport && matchTouch);
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
 
   // Mobile & iOS Safari Scroll Lock Hijack
   useEffect(() => {
+    if (isMobile) return;
     const element = containerRef.current;
     if (!element) return;
 
@@ -46,7 +56,13 @@ export default function EngineeringMethodology() {
       element.removeEventListener("touchstart", handleTouchStart);
       element.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [scrollYProgress]);
+  }, [isMobile]);
+
+  // Set up scroll tracking over 400vh of space (Desktop Only)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
   // Stacking transform configurations: Card scales down to 0.94 and drops to 0.6 opacity as next card overlaps
   const card1Scale = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.94]);
@@ -75,17 +91,13 @@ export default function EngineeringMethodology() {
     [0.0, 1.0, 1.0]
   );
 
-  const cards = [
+  const cardsData = [
     {
       id: 1,
       Icon: Search,
       phase: "PHASE_01",
       title: "Deep Discovery Matrix",
       description: "We ruthlessly audit your current system inefficiencies, evaluate your market competitor operating structures, and map out a bulletproof technical execution layout designed to convert.",
-      scale: card1Scale,
-      opacity: card1Opacity,
-      y: "0vh",
-      zIndex: 10,
     },
     {
       id: 2,
@@ -93,10 +105,6 @@ export default function EngineeringMethodology() {
       phase: "PHASE_02",
       title: "Structural Blueprints",
       description: "Before writing a single line of production code, we engineer detailed schematic wireframes, database interaction maps, and system design files to ensure absolute project predictability.",
-      scale: card2Scale,
-      opacity: card2Opacity,
-      y: card2Y,
-      zIndex: 20,
     },
     {
       id: 3,
@@ -104,10 +112,6 @@ export default function EngineeringMethodology() {
       phase: "PHASE_03",
       title: "High-Velocity Sprints",
       description: "Our engineers compile clean, premium TypeScript codebase layers in accelerated intervals. Zero clutter, multi-layered encryption frameworks, and extreme subpixel rendering adjustments locked by default.",
-      scale: card3Scale,
-      opacity: card3Opacity,
-      y: card3Y,
-      zIndex: 30,
     },
     {
       id: 4,
@@ -115,12 +119,49 @@ export default function EngineeringMethodology() {
       phase: "PHASE_04",
       title: "Telemetry Scaling",
       description: "We ship your architecture directly onto distributed edge CDN networks, running absolute frame-stability diagnostics and page-speed optimization passes before passing over full root-access control links.",
+    },
+  ];
+
+  const cards = [
+    {
+      ...cardsData[0],
+      scale: card1Scale,
+      opacity: card1Opacity,
+      y: "0vh",
+      zIndex: 10,
+    },
+    {
+      ...cardsData[1],
+      scale: card2Scale,
+      opacity: card2Opacity,
+      y: card2Y,
+      zIndex: 20,
+    },
+    {
+      ...cardsData[2],
+      scale: card3Scale,
+      opacity: card3Opacity,
+      y: card3Y,
+      zIndex: 30,
+    },
+    {
+      ...cardsData[3],
       scale: 1.0,
       opacity: card4Opacity,
       y: card4Y,
       zIndex: 40,
     },
   ];
+
+  if (isMobile) {
+    return (
+      <MobileScrollHardLockPortal
+        cards={cardsData}
+        sectionTitle="THE PRODUCTION PIPELINE CORE."
+        sectionSubtitle="De-risked execution. Precision engineering from blueprints to active market deployment."
+      />
+    );
+  }
 
   return (
     <section 
@@ -151,9 +192,9 @@ export default function EngineeringMethodology() {
               <motion.div
                 key={card.id}
                 style={{
-                  y: card.y,
-                  scale: card.scale,
-                  opacity: card.opacity,
+                  y: card.y as any,
+                  scale: card.scale as any,
+                  opacity: card.opacity as any,
                   zIndex: card.zIndex,
                   background: "rgba(235, 245, 255, 0.07)",
                   backdropFilter: "blur(24px)",

@@ -72,6 +72,12 @@ export function PageTransition() {
       // Backdrop panel drops from y: "-100%" to y: "0%".
       const timer1 = setTimeout(() => {
         setPhase("phase2");
+        // Execute the router push exactly when the 500ms timer hits (at Phase 1 completion)
+        if (targetUrl) {
+          startTransition(() => {
+            router.push(targetUrl);
+          });
+        }
       }, 500);
 
       return () => clearTimeout(timer1);
@@ -81,22 +87,11 @@ export function PageTransition() {
       // Step 2: Spring Text Pop & Router Detonation. Duration: 550ms.
       // Center "venzorX" text is revealed.
       // Text pop scale sequence takes 350ms, followed by a 200ms hold phase.
-      // Trigger the router push strictly during the 200ms hold phase (at 350ms into Phase 2).
-      const routeChangeTimer = setTimeout(() => {
-        if (targetUrl) {
-          startTransition(() => {
-            router.push(targetUrl);
-          });
-        }
-      }, 350);
-
-      // Phase 3 transition triggers at 550ms of Phase 2 (total 1050ms from start)
       const timer2 = setTimeout(() => {
         setPhase("phase3");
       }, 550);
 
       return () => {
-        clearTimeout(routeChangeTimer);
         clearTimeout(timer2);
       };
     }
@@ -171,7 +166,7 @@ export function PageTransition() {
                       }}
                       className={`${syne.variable} font-syne font-black text-white text-6xl sm:text-7xl md:text-9xl uppercase select-none`}
                       style={{
-                        letterSpacing: "0.05em",
+                        letterSpacing: "0.06em",
                         transform: "translate3d(0, 0, 0)",
                         willChange: "transform, opacity",
                         filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.95)) drop-shadow(0 4px 6px rgba(0,0,0,0.8))",
@@ -189,4 +184,5 @@ export function PageTransition() {
     </AnimatePresence>
   );
 }
+
 

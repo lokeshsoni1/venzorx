@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Zap, ShieldCheck, Activity, Globe } from 'lucide-react';
+import { MobileAutoFadeStack } from '@/components/ui/MobileAutoFadeStack';
 
 export default function WhyChooseUs() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Set up scroll tracking over 300vh of space (Unified for all viewports)
+  // Screen Matrix Detection: Validate <= 1024px
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
+
+  // Set up scroll tracking over 300vh of space (Desktop Only)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -97,6 +110,15 @@ export default function WhyChooseUs() {
       zIndex: 40,
     },
   ];
+
+  if (isMobile) {
+    return (
+      <MobileAutoFadeStack
+        cards={cardsData}
+        sectionTitle="Why Choose Us"
+      />
+    );
+  }
 
   return (
     <section 

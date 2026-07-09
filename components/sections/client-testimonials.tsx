@@ -60,14 +60,15 @@ function Marquee({
   ...props
 }: MarqueeProps) {
   const speedVariants = {
-    slow: "[--duration:120s]",
-    normal: "[--duration:35s]",
-    fast: "[--duration:15s]",
+    slow: "[--duration:240s]", // Halved speed (2x duration)
+    normal: "[--duration:70s]", // Halved speed (2x duration)
+    fast: "[--duration:30s]", // Halved speed (2x duration)
   };
 
   return (
     <div
       {...props}
+      style={{ WebkitOverflowScrolling: "touch" }}
       className={`group flex overflow-hidden p-2 [--gap:24px] [gap:var(--gap)] select-none ${speedVariants[speed]} ${className}`}
     >
       {Array(repeat)
@@ -75,6 +76,7 @@ function Marquee({
         .map((_, i) => (
           <div
             key={i}
+            style={{ transform: "translate3d(0, 0, 0)", willChange: "transform" }}
             className={`flex shrink-0 justify-around [gap:var(--gap)] will-change-transform translate-z-0 transform-gpu animate-marquee flex-row group-hover:[animation-play-state:paused] ${
               reverse ? "[animation-direction:reverse]" : ""
             }`}
@@ -85,6 +87,7 @@ function Marquee({
     </div>
   );
 }
+
 
 // ==========================================
 // 3. TARGET DATA ARCHITECTURE (6 INDUSTRY SECTORS)

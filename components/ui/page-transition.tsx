@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Syne } from "next/font/google";
 
@@ -13,7 +13,6 @@ const syne = Syne({
 
 export function PageTransition() {
   const router = useRouter();
-  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
   // Animation lifecycle states: 'idle' | 'phase1' | 'phase2' | 'phase3'
@@ -65,26 +64,10 @@ export function PageTransition() {
     };
   }, []);
 
-  // Handle the rigid 1.5-second timeline sequence
+  // Handle the rigid 1.5-second timeline sequence for phase 2 and 3
   useEffect(() => {
-    if (phase === "phase1") {
-      // Step 1: Synchronized Drop. Duration: 500ms.
-      // Backdrop panel drops from y: "-100%" to y: "0%".
-      const timer1 = setTimeout(() => {
-        setPhase("phase2");
-        // Execute the router push exactly when the 500ms timer hits (at Phase 1 completion)
-        if (targetUrl) {
-          startTransition(() => {
-            router.push(targetUrl);
-          });
-        }
-      }, 500);
-
-      return () => clearTimeout(timer1);
-    }
-
     if (phase === "phase2") {
-      // Step 2: Spring Text Pop & Router Detonation. Duration: 550ms.
+      // Step 2: Spring Text Pop. Duration: 550ms.
       // Center "venzorX" text is revealed.
       // Text pop scale sequence takes 350ms, followed by a 200ms hold phase.
       const timer2 = setTimeout(() => {
@@ -136,6 +119,18 @@ export function PageTransition() {
               ? { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
               : { duration: 0 }
           }
+          onAnimationComplete={() => {
+            // Hook directly into the Framer Motion onAnimationComplete hook to trigger route push
+            // ONLY after the dark panel reaches exactly y: 0px (100% viewport coverage)
+            if (phase === "phase1") {
+              setPhase("phase2");
+              if (targetUrl) {
+                startTransition(() => {
+                  router.push(targetUrl);
+                });
+              }
+            }
+          }}
           className="absolute inset-0 w-full h-full pointer-events-auto"
           style={{
             backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png')",
@@ -184,5 +179,3 @@ export function PageTransition() {
     </AnimatePresence>
   );
 }
-
-

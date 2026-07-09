@@ -81,16 +81,18 @@ body {
 
 @keyframes marquee {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(calc(-100% - var(--gap)));
+    transform: translate3d(calc(-100% - var(--gap)), 0, 0);
   }
 }
 
 .animate-marquee {
-  animation: marquee var(--duration, 35s) linear infinite;
+  animation: marquee var(--duration, 70s) linear infinite;
+  will-change: transform;
 }
+
 
 /* Instantly suspends heavy pointer matrix and dynamic element hover computations during scroll momentum changes */
 .is-scrolling,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Zap, ShieldCheck, Activity, Globe } from 'lucide-react';
 
@@ -12,6 +12,41 @@ export default function WhyChooseUs() {
     target: containerRef,
     offset: ["start start", "end end"]
   });
+
+  // Mobile & iOS Safari Scroll Lock Hijack
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    let startY = 0;
+    let startScrollY = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+      startScrollY = window.scrollY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const progress = scrollYProgress.get();
+      // Hijack and lock native scrolling when container is in active pinning state (0 < progress < 1)
+      if (progress > 0 && progress < 1) {
+        if (e.cancelable) {
+          e.preventDefault();
+        }
+        const deltaY = startY - e.touches[0].clientY;
+        // Map gesture-delta to programmatically move viewport, preventing native touch leaks/overshoot
+        window.scrollTo(0, startScrollY + deltaY);
+      }
+    };
+
+    element.addEventListener("touchstart", handleTouchStart, { passive: false });
+    element.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      element.removeEventListener("touchstart", handleTouchStart);
+      element.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [scrollYProgress]);
 
   // Stacking transform configurations: Card scales down to 0.94 and drops to 0.6 opacity as next card overlaps
   const card1Scale = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.94]);
@@ -87,6 +122,9 @@ export default function WhyChooseUs() {
     <section 
       ref={containerRef} 
       className="relative w-full h-[400vh] bg-transparent antialiased"
+      style={{
+        WebkitOverflowScrolling: "touch",
+      }}
     >
       {/* Sticky Viewport Wrapper */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center px-4 md:px-12 select-none">
@@ -118,14 +156,17 @@ export default function WhyChooseUs() {
                 }}
                 className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden"
               >
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-12 h-full w-full p-8 md:p-12">
-                  <div className="flex items-center gap-4 md:gap-6 min-w-[280px]">
+                <div 
+                  className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-12 h-full w-full p-8 md:p-12"
+                  style={{ transform: "translate3d(0, 0, 0)" }}
+                >
+                  <div className="flex items-center gap-4 md:gap-6 min-w-[280px]" style={{ transform: "translate3d(0, 0, 0)" }}>
                     <Icon className="text-cyan-400 h-10 w-10 md:h-12 md:w-12 shrink-0" />
                     <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-sans">
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-zinc-200 text-base md:text-lg font-normal leading-relaxed tracking-wide max-w-2xl">
+                  <p className="text-zinc-200 text-base md:text-lg font-normal leading-relaxed tracking-wide max-w-2xl" style={{ transform: "translate3d(0, 0, 0)" }}>
                     {card.description}
                   </p>
                 </div>

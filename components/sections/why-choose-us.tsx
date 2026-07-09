@@ -13,29 +13,26 @@ export default function WhyChooseUs() {
     offset: ["start start", "end end"]
   });
 
-  // Card 1: Starts centered, scales down and fades slightly as Card 2 stacks over it
+  // Stacking transform configurations: Card scales down to 0.94 and drops to 0.6 opacity as next card overlaps
   const card1Scale = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.94]);
-  const card1Opacity = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.65]);
+  const card1Opacity = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.6]);
 
-  // Card 2: Glides up from 100vh to 0px, then scales down and fades as Card 3 stacks over it
   const card2Y = useTransform(scrollYProgress, [0.0, 0.25], ["100vh", "0vh"]);
   const card2Scale = useTransform(scrollYProgress, [0.25, 0.50], [1.0, 0.94]);
   const card2Opacity = useTransform(
     scrollYProgress,
     [0.0, 0.1, 0.25, 0.50],
-    [0.0, 1.0, 1.0, 0.65]
+    [0.0, 1.0, 1.0, 0.6]
   );
 
-  // Card 3: Glides up from 100vh to 0px, then scales down and fades as Card 4 stacks over it
   const card3Y = useTransform(scrollYProgress, [0.25, 0.50], ["100vh", "0vh"]);
   const card3Scale = useTransform(scrollYProgress, [0.50, 0.75], [1.0, 0.94]);
   const card3Opacity = useTransform(
     scrollYProgress,
     [0.25, 0.35, 0.50, 0.75],
-    [0.0, 1.0, 1.0, 0.65]
+    [0.0, 1.0, 1.0, 0.6]
   );
 
-  // Card 4: Glides up from 100vh to 0px, stays as the top visual shield
   const card4Y = useTransform(scrollYProgress, [0.50, 0.75], ["100vh", "0vh"]);
   const card4Opacity = useTransform(
     scrollYProgress,
@@ -100,7 +97,7 @@ export default function WhyChooseUs() {
         </h2>
 
         {/* Stacking Cards Absolute Box */}
-        <div className="relative w-full max-w-5xl h-[55vh] md:h-[45vh] flex items-center justify-center">
+        <div className="relative w-[92vw] max-w-5xl h-[65vh] flex items-center justify-center">
           {cards.map((card) => {
             const Icon = card.Icon;
             return (
@@ -111,14 +108,15 @@ export default function WhyChooseUs() {
                   scale: card.scale,
                   opacity: card.opacity,
                   zIndex: card.zIndex,
-                  background: "rgba(10, 10, 12, 0.45)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  background: "rgba(235, 245, 255, 0.07)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  border: "1px solid rgba(200, 230, 255, 0.15)",
+                  boxShadow: "0 20px 50px rgba(0, 15, 40, 0.3)",
                   transform: "translate3d(0, 0, 0)",
                   willChange: "transform, opacity, backdrop-filter",
                 }}
-                className="absolute inset-0 w-full h-full rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
+                className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden"
               >
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-12 h-full w-full p-8 md:p-12">
                   <div className="flex items-center gap-4 md:gap-6 min-w-[280px]">
@@ -127,7 +125,7 @@ export default function WhyChooseUs() {
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-zinc-300 text-base md:text-lg font-normal leading-relaxed tracking-wide max-w-2xl">
+                  <p className="text-zinc-200 text-base md:text-lg font-normal leading-relaxed tracking-wide max-w-2xl">
                     {card.description}
                   </p>
                 </div>

@@ -1,93 +1,42 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Zap, ShieldCheck, Activity, Globe } from 'lucide-react';
-import { MobileScrollHardLockPortal } from '@/components/ui/MobileScrollHardLockPortal';
 
 export default function WhyChooseUs() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Screen Matrix Detection: Validate <= 1024px and touch capability
-  useEffect(() => {
-    const checkDevice = () => {
-      const matchViewport = window.innerWidth <= 1024;
-      const matchTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      setIsMobile(matchViewport && matchTouch);
-    };
-
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
-    return () => window.removeEventListener("resize", checkDevice);
-  }, []);
-
-  // Mobile & iOS Safari Scroll Lock Hijack
-  useEffect(() => {
-    if (isMobile) return;
-    const element = containerRef.current;
-    if (!element) return;
-
-    let startY = 0;
-    let startScrollY = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      startY = e.touches[0].clientY;
-      startScrollY = window.scrollY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const progress = scrollYProgress.get();
-      // Hijack and lock native scrolling when container is in active pinning state (0 < progress < 1)
-      if (progress > 0 && progress < 1) {
-        if (e.cancelable) {
-          e.preventDefault();
-        }
-        const deltaY = startY - e.touches[0].clientY;
-        // Map gesture-delta to programmatically move viewport, preventing native touch leaks/overshoot
-        window.scrollTo(0, startScrollY + deltaY);
-      }
-    };
-
-    element.addEventListener("touchstart", handleTouchStart, { passive: false });
-    element.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-    return () => {
-      element.removeEventListener("touchstart", handleTouchStart);
-      element.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [isMobile]);
-
-  // Set up scroll tracking over 400vh of space (Desktop Only)
+  // Set up scroll tracking over 300vh of space (Unified for all viewports)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
   // Stacking transform configurations: Card scales down to 0.94 and drops to 0.6 opacity as next card overlaps
-  const card1Scale = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.94]);
-  const card1Opacity = useTransform(scrollYProgress, [0.0, 0.25], [1.0, 0.6]);
+  const card1Scale = useTransform(scrollYProgress, [0.0, 0.33], [1.0, 0.94]);
+  const card1Opacity = useTransform(scrollYProgress, [0.0, 0.33], [1.0, 0.6]);
 
-  const card2Y = useTransform(scrollYProgress, [0.0, 0.25], ["100vh", "0vh"]);
-  const card2Scale = useTransform(scrollYProgress, [0.25, 0.50], [1.0, 0.94]);
+  const card2Y = useTransform(scrollYProgress, [0.0, 0.33], ["100vh", "0vh"]);
+  const card2Scale = useTransform(scrollYProgress, [0.33, 0.66], [1.0, 0.94]);
   const card2Opacity = useTransform(
     scrollYProgress,
-    [0.0, 0.1, 0.25, 0.50],
+    [0.0, 0.1, 0.33, 0.66],
     [0.0, 1.0, 1.0, 0.6]
   );
 
-  const card3Y = useTransform(scrollYProgress, [0.25, 0.50], ["100vh", "0vh"]);
-  const card3Scale = useTransform(scrollYProgress, [0.50, 0.75], [1.0, 0.94]);
+  const card3Y = useTransform(scrollYProgress, [0.33, 0.66], ["100vh", "0vh"]);
+  const card3Scale = useTransform(scrollYProgress, [0.66, 1.0], [1.0, 0.94]);
   const card3Opacity = useTransform(
     scrollYProgress,
-    [0.25, 0.35, 0.50, 0.75],
+    [0.33, 0.43, 0.66, 1.0],
     [0.0, 1.0, 1.0, 0.6]
   );
 
-  const card4Y = useTransform(scrollYProgress, [0.50, 0.75], ["100vh", "0vh"]);
+  const card4Y = useTransform(scrollYProgress, [0.66, 1.0], ["100vh", "0vh"]);
   const card4Opacity = useTransform(
     scrollYProgress,
-    [0.50, 0.60, 0.75],
+    [0.66, 0.76, 1.0],
     [0.0, 1.0, 1.0]
   );
 
@@ -149,19 +98,10 @@ export default function WhyChooseUs() {
     },
   ];
 
-  if (isMobile) {
-    return (
-      <MobileScrollHardLockPortal
-        cards={cardsData}
-        sectionTitle="Why Choose Us"
-      />
-    );
-  }
-
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[400vh] bg-transparent antialiased"
+      className="relative w-full h-[300vh] bg-transparent antialiased"
       style={{
         WebkitOverflowScrolling: "touch",
       }}
@@ -186,10 +126,10 @@ export default function WhyChooseUs() {
                   scale: card.scale as any,
                   opacity: card.opacity as any,
                   zIndex: card.zIndex,
-                  background: "rgba(235, 245, 255, 0.07)",
+                  background: "rgba(245, 250, 255, 0.08)",
                   backdropFilter: "blur(24px)",
                   WebkitBackdropFilter: "blur(24px)",
-                  border: "1px solid rgba(200, 230, 255, 0.15)",
+                  border: "1px solid rgba(255, 255, 255, 0.18)",
                   boxShadow: "0 20px 50px rgba(0, 15, 40, 0.3)",
                   transform: "translate3d(0, 0, 0)",
                   willChange: "transform, opacity, backdrop-filter",

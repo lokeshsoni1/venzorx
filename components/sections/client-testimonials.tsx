@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 // Technical datasets for Card Profiles with local portfolio asset mapping
 const industrialTestimonials = [
@@ -11,7 +11,6 @@ const industrialTestimonials = [
     role: "Founder & Lead Dentist @ Bethany Dental Care",
     sector: "HEALTHCARE WEB PLATFORMS",
     content: "As a healthcare professional, I was looking for someone who understood that a clinic’s website needs to be warm, empathetic, and exceptionally efficient. VenzorX delivered exactly that. They transformed our online presence into a beautiful, lightning-fast space that our patients genuinely trust and love. From the seamless automated booking to the intuitive patient flow, their work has set a new benchmark for medical platforms. If you want a website that truly understands healthcare and converts visitors into patients before a single blink, there is absolutely nobody better than VenzorX.",
-    avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
     demoLink: "https://bethany-dental-care.vercel.app/",
     targets: [
@@ -26,7 +25,6 @@ const industrialTestimonials = [
     role: "Managing Director @ Dilip Furniture & Wholesalers",
     sector: "B2B & RETAIL E-COMMERCE",
     content: "We wanted to shift our traditional furniture business online, but VenzorX took it to a level we couldn’t even imagine. They eliminated our competition completely by transforming our store into a premium, lightning-fast digital showroom that feels exactly like shopping on Amazon. The way they map bulk wholesale ordering alongside an elegant retail experience is pure genius. Our daily operations shifted gears, and our online reach expanded across the country almost overnight. If you are a big wholesaler or retailer looking to dominate the digital market and completely scale your business, VenzorX is the only choice.",
-    avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
     demoLink: "https://dilip-elegance.vercel.app/",
     targets: [
@@ -41,7 +39,6 @@ const industrialTestimonials = [
     role: "Founder & Managing Director @ Doctor Career Consultancy",
     sector: "IT RECRUITMENT & BESPOKE CONSULTING INFRASTRUCTURE",
     content: "VenzorX completely transformed our platform operations. They replaced our outdated web system with a fast, modern digital engine tailored perfectly to our consulting pipelines. The new application runs with zero lag, handles complex user workflows effortlessly, and has set a new standard for our business scaling. If you are looking for absolute technical excellence and a web system that dominates your market baseline, their engineering is completely unmatched.",
-    avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
     demoLink: "https://www.doctorcareerconsultancy.in/",
     targets: [
@@ -53,13 +50,12 @@ const industrialTestimonials = [
   }
 ];
 
-// Automated Live-URL Carousel Slideshow Engine Component (with text labels removed)
+// Automated Local Portfolio Slideshow Component
 function UrlSlideshow({ targets }: { targets: string[] }) {
   const [index, setIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Slides array with the first element duplicated at the end for infinite marquee effect
   const slides = [...targets, targets[0]];
 
   useEffect(() => {
@@ -68,7 +64,7 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
       setIndex((prev) => prev + 1);
     };
 
-    const interval = setInterval(runCarousel, 2000); // 2.0s Transition Interval
+    const interval = setInterval(runCarousel, 2000); // 2.0s loop
     return () => {
       clearInterval(interval);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -77,11 +73,10 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
 
   useEffect(() => {
     if (index === slides.length - 1) {
-      // Loop Flow: reset to 0 seamlessly after the transition finishes
       timeoutRef.current = setTimeout(() => {
         setIsTransitioning(false);
         setIndex(0);
-      }, 700); // transition speed
+      }, 700);
     }
   }, [index, slides.length]);
 
@@ -96,30 +91,87 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
           willChange: "transform",
         }}
       >
-        {slides.map((slideUrl, idx) => {
-          return (
-            <div
-              key={idx}
-              style={{ width: `${100 / slides.length}%` }}
-              className="h-full relative flex-shrink-0"
-            >
-              <img
-                src={slideUrl}
-                alt="Project Showcase Slide"
-                className="w-full h-full object-cover opacity-80"
-                loading="eager" // Strict static loading optimization
-                style={{ willChange: "transform, filter" }}
-              />
-            </div>
-          );
-        })}
+        {slides.map((slideUrl, idx) => (
+          <div
+            key={idx}
+            style={{ width: `${100 / slides.length}%` }}
+            className="h-full relative flex-shrink-0"
+          >
+            <img
+              src={slideUrl}
+              alt="Project Showcase Slide"
+              className="w-full h-full object-cover opacity-80"
+              loading="eager"
+              style={{ willChange: "transform, filter" }}
+            />
+          </div>
+        ))}
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent pointer-events-none z-10" />
     </div>
   );
 }
 
+// Stacking Scroll-Linked Pinning Wrapper for Desktop viewports
+function StackingCard({ 
+  children, 
+  index, 
+  total, 
+  isMobile 
+}: { 
+  children: React.ReactNode; 
+  index: number; 
+  total: number; 
+  isMobile: boolean;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
+
+  if (isMobile) {
+    return (
+      <div className="w-full flex justify-center py-4">
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <div 
+      ref={containerRef} 
+      className="w-full flex justify-center sticky top-[15vh] h-[70vh] mb-[15vh]"
+    >
+      <motion.div 
+        style={{ 
+          scale: index === total - 1 ? 1 : scale, 
+          opacity: index === total - 1 ? 1 : opacity,
+          willChange: "transform, opacity, filter"
+        }}
+        className="w-full flex justify-center transform-gpu"
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function ClientTestimonialsMarqueeSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section className="w-full relative py-32 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased">
       
@@ -184,22 +236,20 @@ export default function ClientTestimonialsMarqueeSection() {
         </p>
       </div>
 
-      {/* 3 High-Fidelity Mirror-Glass Display Showcases */}
-      <div className="w-[92vw] max-w-6xl mx-auto flex flex-col gap-16 relative z-30">
+      {/* Stacking Showcases Container */}
+      <div 
+        className="w-[92vw] max-w-6xl mx-auto flex flex-col relative z-30"
+        style={!isMobile ? { minHeight: "220vh" } : undefined}
+      >
         {industrialTestimonials.map((testimonial, index) => {
-          const isEven = index % 2 === 1; // Card 1 (Left), Card 2 (Right), Card 3 (Left)
+          const isEven = index % 2 === 1; // Alternating layout setup
           
           return (
-            <motion.div
-              key={index}
-              animate={{ y: [-8, 8, -8] }}
-              transition={{
-                repeat: Infinity,
-                duration: 5,
-                ease: "easeInOut",
-                delay: index * 0.4 // Staggers the levitation pattern across the cards
-              }}
-              className="w-full flex justify-center transform-gpu"
+            <StackingCard 
+              key={index} 
+              index={index} 
+              total={industrialTestimonials.length} 
+              isMobile={isMobile}
             >
               <div
                 className="electric-glow-card w-[94vw] lg:w-[96vw] lg:max-w-[1400px] h-auto lg:h-[70vh] min-h-[52vh] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
@@ -218,13 +268,8 @@ export default function ClientTestimonialsMarqueeSection() {
                   <div 
                     className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-between"
                   >
-                    {/* Identity Header */}
+                    {/* Identity Header (Avatar Graphic Removed) */}
                     <div className="flex items-center space-x-4 border-b border-white/5 pb-4">
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="h-12 w-12 object-cover rounded-full border border-white/10"
-                      />
                       <div>
                         <span className="block text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-0.5">
                           {testimonial.sector}
@@ -265,7 +310,7 @@ export default function ClientTestimonialsMarqueeSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </StackingCard>
           );
         })}
       </div>

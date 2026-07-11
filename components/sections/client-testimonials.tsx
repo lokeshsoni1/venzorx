@@ -1,66 +1,182 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 
-// Testimonial Data structure (exactly 5 industry sectors)
+// Technical datasets for Card Profiles
 const industrialTestimonials = [
   {
-    name: "Dr. Aris Vance",
-    role: "Chief Medical Director @ NeuroPulse",
-    sector: "HEALTHCARE UTILITIES",
-    content: "VenzorX completely rebuilt our clinical patient booking dashboard framework. They wiped out our persistent system lags and legacy tech-debt, accelerating operational conversions by a clean 42%.",
+    name: "Dr. Sarah Bethany",
+    role: "Founder & Lead Dentist @ Bethany Dental Care",
+    sector: "HEALTHCARE WEB PLATFORMS",
+    content: "As a healthcare professional, I was looking for someone who understood that a clinic’s website needs to be warm, empathetic, and exceptionally efficient. VenzorX delivered exactly that. They transformed our online presence into a beautiful, lightning-fast space that our patients genuinely trust and love. From the seamless automated booking to the intuitive patient flow, their work has set a new benchmark for medical platforms. If you want a website that truly understands healthcare and converts visitors into patients before a single blink, there is absolutely nobody better than VenzorX.",
     avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
-    demoLink: "/demo/healthcare",
-    previewImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+    demoLink: "https://bethany-dental-care.vercel.app/",
+    targets: [
+      "https://bethany-dental-care.vercel.app/",
+      "https://bethany-dental-care.vercel.app/about",
+      "https://bethany-dental-care.vercel.app/services",
+      "https://bethany-dental-care.vercel.app/contact"
+    ]
   },
   {
-    name: "Marcus Thorn",
-    role: "Founder @ Elysian Grooming Lounge",
-    sector: "LUXURY SALONS & BARBERS",
-    content: "Our premium schedule rendering system was failing during high-volume periods. VenzorX deployed an isolated headless microservice layer that effortlessly processes real-time appointment metrics.",
+    name: "Dilip Sharma",
+    role: "Managing Director @ Dilip Furniture & Wholesalers",
+    sector: "B2B & RETAIL E-COMMERCE",
+    content: "We wanted to shift our traditional furniture business online, but VenzorX took it to a level we couldn’t even imagine. They eliminated our competition completely by transforming our store into a premium, lightning-fast digital showroom that feels exactly like shopping on Amazon. The way they map bulk wholesale ordering alongside an elegant retail experience is pure genius. Our daily operations shifted gears, and our online reach expanded across the country almost overnight. If you are a big wholesaler or retailer looking to dominate the digital market and completely scale your business, VenzorX is the only choice.",
     avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
-    demoLink: "/demo/salons",
-    previewImage: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80"
+    demoLink: "https://dilip-elegance.vercel.app/",
+    targets: [
+      "https://dilip-elegance.vercel.app/",
+      "https://dilip-elegance.vercel.app/about",
+      "https://dilip-elegance.vercel.app/services",
+      "https://dilip-elegance.vercel.app/contact"
+    ]
   },
   {
-    name: "Elena Rossi",
-    role: "Operations Executive @ Atelier Group",
-    sector: "HAUTE RESTAURANTS & HOTELS",
-    content: "The visual presentation of our online booking engine is elite. Visually arresting digital frontends that completely eliminated our dependency on standard generic templates.",
+    name: "Anuradha Kadel",
+    role: "Founder & Managing Director @ Doctor Career Consultancy",
+    sector: "IT RECRUITMENT & BESPOKE CONSULTING INFRASTRUCTURE",
+    content: "VenzorX completely transformed our platform operations. They replaced our outdated web system with a fast, modern digital engine tailored perfectly to our consulting pipelines. The new application runs with zero lag, handles complex user workflows effortlessly, and has set a new standard for our business scaling. If you are looking for absolute technical excellence and a web system that dominates your market baseline, their engineering is completely unmatched.",
     avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
     rating: 5,
-    demoLink: "/demo/hospitality",
-    previewImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    name: "Julian Blake",
-    role: "Managing Partner @ Prime Horizon",
-    sector: "ENTERPRISE REAL ESTATE",
-    content: "Deploying VenzorX’s custom component architecture allowed us to display high-fidelity map interactions cleanly. Complete market dominance achieved across our listing funnels.",
-    avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
-    rating: 5,
-    demoLink: "/demo/realestate",
-    previewImage: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    name: "Sienna Kael",
-    role: "Design Lead @ MonoForm Studios",
-    sector: "ARCHITECTURAL FURNITURE RETAIL",
-    content: "The performance scaling on our high-resolution modular catalog layout is unbelievable. Our loading speed scores jumped straight to 100 on global edge delivery channels.",
-    avatar: "https://raw.githubusercontent.com/dalim-in/dalim/refs/heads/main/apps/www/public/ali.jpg",
-    rating: 5,
-    demoLink: "/demo/furniture",
-    previewImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
+    demoLink: "https://www.doctorcareerconsultancy.in/",
+    targets: [
+      "https://www.doctorcareerconsultancy.in/",
+      "https://www.doctorcareerconsultancy.in/about",
+      "https://www.doctorcareerconsultancy.in/services",
+      "https://www.doctorcareerconsultancy.in/contact"
+    ]
   }
 ];
+
+// Automated Live-URL Carousel Slideshow Engine Component
+function UrlSlideshow({ targets }: { targets: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Slides array with the first element duplicated at the end for infinite marquee effect
+  const slides = [...targets, targets[0]];
+
+  useEffect(() => {
+    const runCarousel = () => {
+      setIsTransitioning(true);
+      setIndex((prev) => prev + 1);
+    };
+
+    const interval = setInterval(runCarousel, 2000); // 2.0s Transition Interval
+    return () => {
+      clearInterval(interval);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (index === slides.length - 1) {
+      // Loop Flow: reset to 0 seamlessly after the transition finishes
+      timeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+        setIndex(0);
+      }, 700); // transition speed
+    }
+  }, [index, slides.length]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-zinc-950/40 transform-gpu">
+      <div
+        className="flex h-full"
+        style={{
+          width: `${slides.length * 100}%`,
+          transform: `translate3d(-${index * (100 / slides.length)}%, 0, 0)`,
+          transition: isTransitioning ? 'transform 700ms cubic-bezier(0.25, 1, 0.5, 1)' : 'none',
+          willChange: "transform",
+        }}
+      >
+        {slides.map((slideUrl, idx) => {
+          const screenshotSrc = `https://image.thum.io/get/width/1024/crop/800/maxAge/12/${slideUrl}`;
+          const labelIndex = idx % targets.length;
+          const labels = ["1. Hero Page", "2. About Us", "3. Services", "4. Contact"];
+
+          return (
+            <div
+              key={idx}
+              style={{ width: `${100 / slides.length}%` }}
+              className="h-full relative flex-shrink-0"
+            >
+              <img
+                src={screenshotSrc}
+                alt={`Layout Preview ${labels[labelIndex]}`}
+                className="w-full h-full object-cover opacity-80"
+                loading="lazy"
+                style={{ willChange: "transform, filter" }}
+              />
+              <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] font-mono text-cyan-400 tracking-wider uppercase select-none z-20">
+                {labels[labelIndex]}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent pointer-events-none z-10" />
+    </div>
+  );
+}
 
 export default function ClientTestimonialsMarqueeSection() {
   return (
     <section className="w-full relative py-32 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased">
       
+      {/* Styles Injection for Hover matrix and Glowing effects */}
+      <style jsx global>{`
+        @keyframes electric-sweep {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 200% 0%;
+          }
+        }
+        .electric-glow-card {
+          position: relative;
+          background: rgba(255, 255, 255, 0.05) !important;
+          backdrop-filter: blur(28px) !important;
+          -webkit-backdrop-filter: blur(28px) !important;
+          border: 1px solid rgba(255, 255, 255, 0.15) !important;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+          will-change: transform, filter, border-color;
+          transform: translate3d(0, 0, 0);
+        }
+        .electric-glow-card:hover {
+          transform: translateY(-8px) translate3d(0, 0, 0) !important;
+          border-color: transparent !important;
+          box-shadow: 0 20px 40px -15px rgba(0, 240, 255, 0.3), 0 0 30px rgba(208, 0, 255, 0.2);
+        }
+        .electric-glow-card::before {
+          content: "";
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          padding: 1.5px;
+          background: linear-gradient(135deg, #00F0FF, #D000FF, #00F0FF);
+          background-size: 200% auto;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 10;
+          will-change: opacity, background-position;
+        }
+        .electric-glow-card:hover::before {
+          opacity: 1;
+          animation: electric-sweep 1.2s linear infinite;
+        }
+      `}</style>
+
       {/* Glow Highlight */}
       <div className="absolute bg-cyan-500/5 blur-[140px] h-[550px] w-[550px] pointer-events-none top-0 z-0" />
       
@@ -74,47 +190,29 @@ export default function ClientTestimonialsMarqueeSection() {
         </p>
       </div>
 
-      {/* 5 High-Fidelity Mirror-Glass Display Showcases */}
+      {/* 3 High-Fidelity Mirror-Glass Display Showcases */}
       <div className="w-[92vw] max-w-6xl mx-auto flex flex-col gap-16 relative z-30">
         {industrialTestimonials.map((testimonial, index) => {
-          const isEven = index % 2 === 1; // Alternating grid (0: left/right, 1: right/left)
+          const isEven = index % 2 === 1; // Card 1 (Left), Card 2 (Right), Card 3 (Left)
           
           return (
             <div
               key={index}
-              style={{
-                background: "rgba(245, 250, 255, 0.08)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                border: "1px solid rgba(255, 255, 255, 0.18)",
-                transform: "translate3d(0, 0, 0)",
-                willChange: "transform, opacity, backdrop-filter",
-              }}
-              className="w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transition-all duration-300"
+              className="electric-glow-card w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
             >
               <div 
-                className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-stretch w-full min-h-[400px]`}
-                style={{ transform: "translate3d(0, 0, 0)" }}
+                className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-stretch w-full min-h-[440px]`}
               >
-                {/* Horizontal Preview Image Panel */}
+                {/* Horizontal Preview Slideshow Panel */}
                 <div 
-                  className="w-full lg:w-1/2 relative min-h-[250px] lg:min-h-auto overflow-hidden bg-zinc-950/40"
-                  style={{ transform: "translate3d(0, 0, 0)" }}
+                  className="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-auto overflow-hidden bg-zinc-950/40"
                 >
-                  <img
-                    src={testimonial.previewImage}
-                    alt={`${testimonial.name} Live Environment`}
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                    style={{ transform: "translate3d(0, 0, 0)" }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent pointer-events-none" />
+                  <UrlSlideshow targets={testimonial.targets} />
                 </div>
 
                 {/* Testimonial Text Content Panel */}
                 <div 
                   className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-between"
-                  style={{ transform: "translate3d(0, 0, 0)" }}
                 >
                   {/* Identity Header */}
                   <div className="flex items-center space-x-4 border-b border-white/5 pb-4">
@@ -137,7 +235,7 @@ export default function ClientTestimonialsMarqueeSection() {
                   </div>
 
                   {/* Core Testimonial Quote */}
-                  <p className="text-zinc-200 text-base md:text-lg leading-relaxed font-normal tracking-wide my-8">
+                  <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-normal tracking-wide my-6 select-text">
                     "{testimonial.content}"
                   </p>
 
@@ -149,11 +247,11 @@ export default function ClientTestimonialsMarqueeSection() {
                       ))}
                     </div>
                     
-                    {/* Premium view demo button with text-gradient hover mask */}
                     <a
                       href={testimonial.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group/btn inline-flex items-center justify-center font-mono text-xs font-black tracking-widest border border-white/10 px-6 py-3.5 rounded-xl bg-zinc-950/60 transition-all duration-200 ease-in-out hover:scale-105 hover:border-cyan-400/50 shadow-lg cursor-pointer text-white"
-                      style={{ transform: "translate3d(0, 0, 0)" }}
                     >
                       <span className="group-hover/btn:bg-gradient-to-r group-hover/btn:from-[#00F0FF] group-hover/btn:to-[#D000FF] group-hover/btn:bg-clip-text group-hover/btn:text-transparent transition-all duration-200">
                         View Demo

@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
+import { motion } from "framer-motion";
 
-// Technical datasets for Card Profiles
+// Technical datasets for Card Profiles with local portfolio asset mapping
 const industrialTestimonials = [
   {
     name: "Dr. Sarah Bethany",
@@ -14,10 +15,10 @@ const industrialTestimonials = [
     rating: 5,
     demoLink: "https://bethany-dental-care.vercel.app/",
     targets: [
-      "https://bethany-dental-care.vercel.app/",
-      "https://bethany-dental-care.vercel.app/about",
-      "https://bethany-dental-care.vercel.app/services",
-      "https://bethany-dental-care.vercel.app/contact"
+      "/images/projects/bethany-1.png",
+      "/images/projects/bethany-2.png",
+      "/images/projects/bethany-3.png",
+      "/images/projects/bethany-4.png"
     ]
   },
   {
@@ -29,10 +30,10 @@ const industrialTestimonials = [
     rating: 5,
     demoLink: "https://dilip-elegance.vercel.app/",
     targets: [
-      "https://dilip-elegance.vercel.app/",
-      "https://dilip-elegance.vercel.app/about",
-      "https://dilip-elegance.vercel.app/services",
-      "https://dilip-elegance.vercel.app/contact"
+      "/images/projects/dilip-1.png",
+      "/images/projects/dilip-2.png",
+      "/images/projects/dilip-3.png",
+      "/images/projects/dilip-4.png"
     ]
   },
   {
@@ -44,15 +45,15 @@ const industrialTestimonials = [
     rating: 5,
     demoLink: "https://www.doctorcareerconsultancy.in/",
     targets: [
-      "https://www.doctorcareerconsultancy.in/",
-      "https://www.doctorcareerconsultancy.in/about",
-      "https://www.doctorcareerconsultancy.in/services",
-      "https://www.doctorcareerconsultancy.in/contact"
+      "/images/projects/doctor-1.png",
+      "/images/projects/doctor-2.png",
+      "/images/projects/doctor-3.png",
+      "/images/projects/doctor-4.png"
     ]
   }
 ];
 
-// Automated Live-URL Carousel Slideshow Engine Component
+// Automated Live-URL Carousel Slideshow Engine Component (with text labels removed)
 function UrlSlideshow({ targets }: { targets: string[] }) {
   const [index, setIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
@@ -96,10 +97,6 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
         }}
       >
         {slides.map((slideUrl, idx) => {
-          const screenshotSrc = `https://image.thum.io/get/width/1024/crop/800/maxAge/12/${slideUrl}`;
-          const labelIndex = idx % targets.length;
-          const labels = ["1. Hero Page", "2. About Us", "3. Services", "4. Contact"];
-
           return (
             <div
               key={idx}
@@ -107,15 +104,12 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
               className="h-full relative flex-shrink-0"
             >
               <img
-                src={screenshotSrc}
-                alt={`Layout Preview ${labels[labelIndex]}`}
+                src={slideUrl}
+                alt="Project Showcase Slide"
                 className="w-full h-full object-cover opacity-80"
-                loading="lazy"
+                loading="eager" // Strict static loading optimization
                 style={{ willChange: "transform, filter" }}
               />
-              <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] font-mono text-cyan-400 tracking-wider uppercase select-none z-20">
-                {labels[labelIndex]}
-              </div>
             </div>
           );
         })}
@@ -196,71 +190,82 @@ export default function ClientTestimonialsMarqueeSection() {
           const isEven = index % 2 === 1; // Card 1 (Left), Card 2 (Right), Card 3 (Left)
           
           return (
-            <div
+            <motion.div
               key={index}
-              className="electric-glow-card w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
+              animate={{ y: [-8, 8, -8] }}
+              transition={{
+                repeat: Infinity,
+                duration: 5,
+                ease: "easeInOut",
+                delay: index * 0.4 // Staggers the levitation pattern across the cards
+              }}
+              className="w-full flex justify-center transform-gpu"
             >
-              <div 
-                className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-stretch w-full min-h-[440px]`}
+              <div
+                className="electric-glow-card w-[94vw] lg:w-[96vw] lg:max-w-[1400px] h-auto lg:h-[70vh] min-h-[52vh] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
               >
-                {/* Horizontal Preview Slideshow Panel */}
                 <div 
-                  className="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-auto overflow-hidden bg-zinc-950/40"
+                  className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-stretch w-full h-full`}
                 >
-                  <UrlSlideshow targets={testimonial.targets} />
-                </div>
-
-                {/* Testimonial Text Content Panel */}
-                <div 
-                  className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-between"
-                >
-                  {/* Identity Header */}
-                  <div className="flex items-center space-x-4 border-b border-white/5 pb-4">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="h-12 w-12 object-cover rounded-full border border-white/10"
-                    />
-                    <div>
-                      <span className="block text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-0.5">
-                        {testimonial.sector}
-                      </span>
-                      <h4 className="font-black text-white text-lg tracking-tight leading-tight">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-xs text-zinc-400 font-medium tracking-normal mt-0.5">
-                        {testimonial.role}
-                      </p>
-                    </div>
+                  {/* Horizontal Preview Slideshow Panel */}
+                  <div 
+                    className="w-full lg:w-1/2 relative min-h-[320px] lg:min-h-full overflow-hidden bg-zinc-950/40"
+                  >
+                    <UrlSlideshow targets={testimonial.targets} />
                   </div>
 
-                  {/* Core Testimonial Quote */}
-                  <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-normal tracking-wide my-6 select-text">
-                    "{testimonial.content}"
-                  </p>
-
-                  {/* Action Bar (Rating & View Demo Button) */}
-                  <div className="flex items-center justify-between border-t border-white/5 pt-6">
-                    <div className="flex space-x-1 items-center">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star className="h-4 w-4 fill-cyan-400 text-cyan-400" key={i} />
-                      ))}
+                  {/* Testimonial Text Content Panel */}
+                  <div 
+                    className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-between"
+                  >
+                    {/* Identity Header */}
+                    <div className="flex items-center space-x-4 border-b border-white/5 pb-4">
+                      <img
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        className="h-12 w-12 object-cover rounded-full border border-white/10"
+                      />
+                      <div>
+                        <span className="block text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-0.5">
+                          {testimonial.sector}
+                        </span>
+                        <h4 className="font-black text-white text-lg tracking-tight leading-tight">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-xs text-zinc-400 font-medium tracking-normal mt-0.5">
+                          {testimonial.role}
+                        </p>
+                      </div>
                     </div>
-                    
-                    <a
-                      href={testimonial.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/btn inline-flex items-center justify-center font-mono text-xs font-black tracking-widest border border-white/10 px-6 py-3.5 rounded-xl bg-zinc-950/60 transition-all duration-200 ease-in-out hover:scale-105 hover:border-cyan-400/50 shadow-lg cursor-pointer text-white"
-                    >
-                      <span className="group-hover/btn:bg-gradient-to-r group-hover/btn:from-[#00F0FF] group-hover/btn:to-[#D000FF] group-hover/btn:bg-clip-text group-hover/btn:text-transparent transition-all duration-200">
-                        View Demo
-                      </span>
-                    </a>
+
+                    {/* Core Testimonial Quote */}
+                    <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-normal tracking-wide my-6 select-text">
+                      "{testimonial.content}"
+                    </p>
+
+                    {/* Action Bar (Rating & View Demo Button) */}
+                    <div className="flex items-center justify-between border-t border-white/5 pt-6">
+                      <div className="flex space-x-1 items-center">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star className="h-4 w-4 fill-cyan-400 text-cyan-400" key={i} />
+                        ))}
+                      </div>
+                      
+                      <a
+                        href={testimonial.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/btn inline-flex items-center justify-center font-mono text-xs font-black tracking-widest border border-white/10 px-6 py-3.5 rounded-xl bg-zinc-950/60 transition-all duration-200 ease-in-out hover:scale-105 hover:border-cyan-400/50 shadow-lg cursor-pointer text-white"
+                      >
+                        <span className="group-hover/btn:bg-gradient-to-r group-hover/btn:from-[#00F0FF] group-hover/btn:to-[#D000FF] group-hover/btn:bg-clip-text group-hover/btn:text-transparent transition-all duration-200">
+                          View Demo
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

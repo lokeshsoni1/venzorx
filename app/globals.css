@@ -146,9 +146,9 @@ body {
 
 /* Bypasses main-thread execution stalls entirely on layout components */
 .transform-gpu {
-  transform: translateZ(0);
+  transform: translate3d(0,0,0);
   backface-visibility: hidden;
   perspective: 1000px;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 

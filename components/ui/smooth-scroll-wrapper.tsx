@@ -10,6 +10,28 @@ declare global {
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    // Non-passive event listener override to intercept and force passive: true on touch/wheel events
+    if (typeof window !== "undefined") {
+      const originalAddEventListener = EventTarget.prototype.addEventListener;
+      EventTarget.prototype.addEventListener = function (
+        type: string,
+        listener: any,
+        options?: boolean | AddEventListenerOptions
+      ) {
+        let opt = options;
+        if (["touchstart", "touchmove", "wheel", "mousewheel"].includes(type)) {
+          if (typeof options === "boolean") {
+            opt = { capture: options, passive: true };
+          } else if (typeof options === "object") {
+            opt = { ...options, passive: true };
+          } else {
+            opt = { passive: true };
+          }
+        }
+        return originalAddEventListener.call(this, type, listener, opt);
+      };
+    }
+
     // Single-instance enforcement to prevent multiple scroll listeners concurrently
     if (typeof window !== "undefined") {
       if (window.__lenisInstance) {

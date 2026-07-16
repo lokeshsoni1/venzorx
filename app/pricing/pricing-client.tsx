@@ -19,29 +19,11 @@ export default function StandalonePricingPage() {
     "Full Enterprise Root-Access Repository Delivery"
   ].map((text) => ({ text }));
 
-  const highTicketTestimonials = [
-    {
-      id: 1,
-      name: "Alex Vance",
-      role: "Chief Technology Officer",
-      company: "NeuroPulse Systems",
-      content: "Bypassing generic templates saved us months of dev debt. VenzorX's custom data architecture delivers sub-100ms latency across our complete production network.",
-      rating: 5,
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-      id: 2,
-      name: "Sienna Kael",
-      role: "Founder & Creative Executive",
-      company: "MonoForm Lounge",
-      content: "Our conversion metrics jumped straight to the ceiling. The dynamic spotlight interaction modules completely eliminated our platform's layout friction.",
-      rating: 5,
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-    }
-  ];
-
   return (
-    <main className="w-full min-h-screen relative py-28 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased select-none">
+    <main 
+      className="w-full min-h-screen relative py-28 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-transparent antialiased select-none"
+      style={{ contain: 'layout style paint' }}
+    >
       {/* Background Lighting System */}
       <div className="absolute bg-cyan-500/5 blur-[160px] h-[600px] w-[600px] pointer-events-none top-1/4 z-0" />
 
@@ -76,7 +58,6 @@ export default function StandalonePricingPage() {
           icon: MessageSquareText,
           href: "https://calendly.com/venzorx-co/30min"
         }}
-        testimonials={highTicketTestimonials}
         className="bg-zinc-950/50 backdrop-blur-3xl transform-gpu backface-hidden will-change-transform translate-z-0 preserve-3d"
       />
     </main>

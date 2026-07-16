@@ -48,6 +48,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.innerWidth <= 768) return;
     if (!cardRef.current) return;
     
     // Hyper-localized delta tracking from the parent element box bounding layout matrix
@@ -63,6 +64,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
   };
 
   const handlePointerLeave = () => {
+    if (typeof window !== "undefined" && window.innerWidth <= 768) return;
     coordsRef.current = { x: -999, y: -999 };
     if (cardRef.current) {
       cardRef.current.style.setProperty('--x', '-999px');
@@ -114,12 +116,24 @@ const GlowCard: React.FC<GlowCardProps> = ({
       -webkit-mask-composite: destination-in;
     }
     
-    [data-glow]::before {
-      background-image: radial-gradient(calc(var(--spotlight-size) * 0.7) at var(--x, -999px) var(--y, -999px), hsl(var(--hue) 100% 65% / 0.75), transparent 100%);
+    @media (min-width: 769px) {
+      [data-glow]::before {
+        background-image: radial-gradient(calc(var(--spotlight-size) * 0.7) at var(--x, -999px) var(--y, -999px), hsl(var(--hue) 100% 65% / 0.75), transparent 100%);
+      }
+      
+      [data-glow]::after {
+        background-image: radial-gradient(calc(var(--spotlight-size) * 0.4) at var(--x, -999px) var(--y, -999px), rgba(255, 255, 255, 0.3), transparent 100%);
+      }
     }
-    
-    [data-glow]::after {
-      background-image: radial-gradient(calc(var(--spotlight-size) * 0.4) at var(--x, -999px) var(--y, -999px), rgba(255, 255, 255, 0.3), transparent 100%);
+
+    @media (max-width: 768px) {
+      [data-glow]::before {
+        border-color: rgba(168, 85, 247, 0.25);
+        transition: border-color 0.4s ease;
+      }
+      [data-glow]:hover::before {
+        border-color: rgba(168, 85, 247, 0.6);
+      }
     }
   `;
 

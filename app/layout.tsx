@@ -121,7 +121,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${architectsDaughter.variable} h-full antialiased`}
     >
       <head>
-        <link rel="preload" as="image" href="https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png" />
+        <link rel="preload" as="image" href="/images/3d_wolf_logo.png" fetchPriority="high" />
+        <link rel="preload" as="image" href="https://res.cloudinary.com/dbpdexty8/image/upload/v1783590720/IMG_20260709_151908_dbgkrv.png" fetchPriority="high" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -133,6 +134,15 @@ export default function RootLayout({
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window,document,"clarity","script","xnhndy6ry0");
+          `}
+        </Script>
+        <Script id="register-sw" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js');
+              });
+            }
           `}
         </Script>
       </head>

@@ -4,95 +4,48 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 
 // ============================================================================
-// 1. DYNAMIC SYSTEM COMPONENT DATA MATRIX (10 HIGH-TICKET GLOBAL REVIEWS)
+// 1. DYNAMIC SYSTEM COMPONENT DATA MATRIX (5 HIGH-TICKET GLOBAL REVIEWS)
 // ============================================================================
 const internationalReviews = [
+  {
+    quote: "VenzorX completely transformed our clinic's online presence into a beautifully efficient, lightning-fast space that our patients genuinely trust. From automated booking to smooth user loops, their engineering sets a flawless standard for medical platforms.",
+    author: "Dr. Sarah Bethany",
+    role: "Founder & Lead Dentist",
+    company: "Bethany Dental Care",
+    initials: "DR",
+  },
+  {
+    quote: "They eliminated our digital competition by turning our enterprise storefront into a high-octane showroom that feels exactly like navigating Amazon. Seamlessly scaling bulk wholesale operations alongside consumer retail is pure genius.",
+    author: "Dilip Sharma",
+    role: "Managing Director",
+    company: "Dilip Furniture & Wholesalers",
+    initials: "DS",
+  },
+  {
+    quote: "Our platform operations were entirely elevated by VenzorX. They replaced laggy legacy systems with a sub-second consulting pipeline engine that handles complex data matrices effortlessly. Their technical excellence is unmatched.",
+    author: "Anuradha Kadel",
+    role: "Founder & Managing Director",
+    company: "Doctor Career Consultancy",
+    initials: "AK",
+  },
   {
     quote: "The visual system engineering provided by VenzorX is entirely unmatched. Every interaction ripple feels intentional, eliminating our production bottlenecks within days.",
     author: "Elena Rostova",
     role: "VP of Digital Infrastructure",
-    company: "AlphaTech Europe (Germany)",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
+    company: "AlphaTech Europe",
+    initials: "ER",
   },
   {
     quote: "Finally, an engineering collective that understands that extreme system simplicity is the ultimate form of corporate sophistication. Our application performance metrics skyrocketed.",
     author: "Kenji Sato",
     role: "Lead Platform Architect",
-    company: "Nexus Core Systems (Japan)",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "Deploying VenzorX's custom component blueprint completely redefined our approach to real-time client traffic conversions. Absolute engineering dominance.",
-    author: "Sarah Jenkins",
-    role: "Chief Design Director",
-    company: "Linear Matrix (USA)",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "Their headless architecture stack wiped out our legacy tech-debt instantly. The data pipeline execution feels crisp, lag-free, and incredibly production-grade.",
-    author: "Liam O'Connor",
-    role: "Director of Product Engineering",
-    company: "Stripe Scaling Labs (Ireland)",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "They don't just build layout interfaces; they engineer conversion assets. The subpixel rendering optimizations alone transformed our premium retail checkout funnels.",
-    author: "Amina Al-Mansoor",
-    role: "Managing Director",
-    company: "Vanguard Retail Core (UAE)",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "VenzorX delivered a high-velocity system architecture that effortlessly maps real-time data flows. Visually arresting frontends built for absolute enterprise scale.",
-    author: "Matteo Ricci",
-    role: "Principal Operations Lead",
-    company: "Atelier Automotive (Italy)",
-    avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "The framework stability combined with fluid physics interactions locked our user attention metrics down completely. Predictable revenue growth followed.",
-    author: "Chloë Dubois",
-    role: "Head of Digital Experience",
-    company: "Elysian Global (France)",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "Our relational system schemas were dragging during apex loads. Their decoupled backend deployment has made our entire data platform ruthlessly efficient.",
-    author: "Devendra Nair",
-    role: "Chief Technology Officer",
-    company: "Quantum Analytics (India)",
-    avatar: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "They bypassed all standard generic design practices and engineered a bespoke, secure microservice layer that validated our market mechanics perfectly.",
-    author: "Sven Lindstrom",
-    role: "VP of Architecture Planning",
-    company: "Nordic Tech Fund (Sweden)",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=250&auto=format&fit=crop",
-  },
-  {
-    quote: "The frame-stability diagnostic score on VenzorX's Vercel deployment edge is 100 out of 100. They have built an absolute software titan.",
-    author: "Carlos Mendez",
-    role: "Founder & Creative Lead",
-    company: "Prism Dev Studios (Brazil)",
-    avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=250&auto=format&fit=crop",
+    company: "Nexus Core Systems",
+    initials: "KS",
   }
 ];
 
 // ============================================================================
-// 2. IMAGE PRELOAD HOOK DEFINITION
-// ============================================================================
-function usePreloadImages(images: string[]) {
-  useEffect(() => {
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, [images]);
-}
-
-// ============================================================================
-// 3. HARDWARE-ACCELERATED SPLIT TEXT CORE
+// 2. HARDWARE-ACCELERATED SPLIT TEXT CORE
 // ============================================================================
 function SplitText({ text }: { text: string }) {
   const words = text.split(" ");
@@ -119,14 +72,12 @@ function SplitText({ text }: { text: string }) {
 }
 
 // ============================================================================
-// 4. MAIN INTERACTIVE REVIEWS SECTOR PANEL
+// 3. MAIN INTERACTIVE REVIEWS SECTOR PANEL
 // ============================================================================
 export default function SystemIntegrationValidationSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  usePreloadImages(internationalReviews.map((r) => r.avatar));
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -160,7 +111,7 @@ export default function SystemIntegrationValidationSection() {
           SYSTEM INTEGRATION VALIDATION
         </h2>
         <p className="text-sm md:text-lg font-mono text-cyan-400 tracking-widest uppercase">
-          10 Global Enterprises. Zero Fault Vectors. Full Operational Autonomy.
+          ZERO FAULT VECTORS. FULL OPERATIONAL AUTONOMY.
         </p>
       </div>
 
@@ -232,12 +183,12 @@ export default function SystemIntegrationValidationSection() {
           {internationalReviews.map((r, i) => (
             <motion.div
               key={i}
-              className={`w-6 h-6 rounded-full border border-zinc-950 overflow-hidden transition-all duration-300 ${
-                i === activeIndex ? "ring-1 ring-cyan-400 ring-offset-1 ring-offset-zinc-950 scale-110 opacity-100" : "grayscale opacity-40"
+              className={`w-6 h-6 rounded-full border border-zinc-800 bg-zinc-950 flex items-center justify-center transition-all duration-300 ${
+                i === activeIndex ? "ring-1 ring-cyan-400 ring-offset-1 ring-offset-zinc-950 scale-110 opacity-100" : "opacity-40"
               }`}
               whileHover={{ scale: 1.2, opacity: 1 }}
             >
-              <img src={r.avatar} alt={r.author} className="w-full h-full object-cover" />
+              <span className="text-[8px] font-mono font-bold text-zinc-300">{r.initials}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -268,18 +219,18 @@ export default function SystemIntegrationValidationSection() {
                 transition={{ duration: 0.4 }}
               />
               {internationalReviews.map((r, i) => (
-                <motion.img
-                  key={r.avatar}
-                  src={r.avatar}
-                  alt={r.author}
-                  className="absolute inset-0 w-14 h-14 rounded-full object-cover border border-white/10"
+                <motion.div
+                  key={i}
+                  className="absolute inset-0 w-14 h-14 rounded-full border border-white/10 bg-zinc-950 flex items-center justify-center"
                   animate={{
                     opacity: i === activeIndex ? 1 : 0,
                     scale: i === activeIndex ? 1 : 0.9,
                     zIndex: i === activeIndex ? 5 : 0,
                   }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                />
+                >
+                  <span className="text-sm font-mono font-bold text-cyan-400">{r.initials}</span>
+                </motion.div>
               ))}
             </div>
 

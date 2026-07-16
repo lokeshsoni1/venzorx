@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+
 const AetherBackground = dynamic(() => import("@/components/ui/aether-background"), { ssr: false });
 
 const ConcentricRingEmblem = () => (
@@ -17,9 +19,15 @@ const ConcentricRingEmblem = () => (
     transition={{ duration: 1.1, ease: "easeOut" }}
     className="relative flex items-center justify-center w-[280px] sm:w-[420px] md:w-[580px] aspect-square max-h-[50vh] cursor-pointer z-10"
   >
-    <img
+    <Image
       src="/images/3d_wolf_logo.png"
       alt="Venzorx Wolf Logo"
+      width={580}
+      height={580}
+      priority={true}
+      loading="eager"
+      fetchPriority="high"
+      unoptimized={true}
       className="relative z-10 w-full h-full object-contain select-none pointer-events-none"
       style={{ imageRendering: "crisp-edges" }}
     />

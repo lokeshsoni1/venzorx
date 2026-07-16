@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 
 // Technical datasets for Card Profiles with local portfolio asset mapping
 const industrialTestimonials = [
@@ -97,11 +98,14 @@ function UrlSlideshow({ targets }: { targets: string[] }) {
             style={{ width: `${100 / slides.length}%` }}
             className="h-full relative flex-shrink-0"
           >
-            <img
+            <Image
               src={slideUrl}
               alt="Project Showcase Slide"
-              className="w-full h-full object-cover opacity-80"
-              loading="eager"
+              fill={true}
+              priority={idx === 0}
+              loading={idx === 0 ? "eager" : "lazy"}
+              unoptimized={true}
+              className="object-cover opacity-80"
               style={{ willChange: "transform, filter" }}
             />
           </div>
@@ -144,15 +148,16 @@ function StackingCard({
   return (
     <div 
       ref={containerRef} 
-      className="w-full flex justify-center sticky top-[15vh] h-[70vh] mb-[15vh]"
+      className="w-full flex justify-center sticky top-0 h-screen mb-[5vh]"
     >
       <motion.div 
         style={{ 
           scale: index === total - 1 ? 1 : scale, 
           opacity: index === total - 1 ? 1 : opacity,
+          transform: "translate3d(0,0,0)",
           willChange: "transform, opacity, filter"
         }}
-        className="w-full flex justify-center transform-gpu"
+        className="w-full h-full flex items-center justify-center transform-gpu"
       >
         {children}
       </motion.div>
@@ -252,7 +257,7 @@ export default function ClientTestimonialsMarqueeSection() {
               isMobile={isMobile}
             >
               <div
-                className="electric-glow-card w-[94vw] lg:w-[96vw] lg:max-w-[1400px] h-auto lg:h-[70vh] min-h-[52vh] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
+                className="electric-glow-card w-[94vw] lg:w-[96vw] lg:max-w-[1400px] h-auto lg:min-h-[65vh] pb-10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,15,40,0.3)] transform-gpu"
               >
                 <div 
                   className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-stretch w-full h-full`}
@@ -284,7 +289,7 @@ export default function ClientTestimonialsMarqueeSection() {
                     </div>
 
                     {/* Core Testimonial Quote */}
-                    <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-normal tracking-wide my-6 select-text">
+                    <p className="text-zinc-200 font-normal tracking-wide my-6 select-text" style={{ fontSize: "clamp(0.9rem, 1.2vw, 1.15rem)", lineHeight: "1.6" }}>
                       "{testimonial.content}"
                     </p>
 

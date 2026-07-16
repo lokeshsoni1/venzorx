@@ -26,7 +26,7 @@ export default function StandaloneContactMonolithPage() {
       alert("Please initialize all data fields before dispatching system request.");
       return;
     }
-    const targetEmail = "venzorx.co@gmail.com";
+    const targetEmail = "contact@venzorx.com";
     const subject = encodeURIComponent(`System Intel Request from ${formData.businessName}`);
     const body = encodeURIComponent(
       `Client Identity / Name: ${formData.name}\n` +

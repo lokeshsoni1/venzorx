@@ -9,7 +9,7 @@ export function Footer() {
           © 2026 VENZORX. ENGINE OF ABSOLUTE DISRUPTION.
         </span>
         <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-8 gap-y-4">
-          <a href="mailto:venzorx.co@gmail.com" className="group flex items-center space-x-2 text-zinc-400 hover:text-cyan-400 transition-colors duration-300 transform-gpu hover:scale-105">
+          <a href="mailto:contact@venzorx.com" className="group flex items-center space-x-2 text-zinc-400 hover:text-cyan-400 transition-colors duration-300 transform-gpu hover:scale-105">
             <Mail className="h-4 w-4 stroke-[2.5] text-cyan-400 filter drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
             <span className="font-mono text-[10px] font-black tracking-widest uppercase hidden sm:inline text-zinc-200">EMAIL</span>
           </a>

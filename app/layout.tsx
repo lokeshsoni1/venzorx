@@ -4,6 +4,7 @@ import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-wrapper";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { PageTransition } from "@/components/ui/page-transition";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,6 +59,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </SmoothScrollProvider>
+        <GoogleAnalytics gaId="G-VT5K3JHDLL" />
       </body>
     </html>
   );

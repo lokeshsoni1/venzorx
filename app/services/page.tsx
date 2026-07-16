@@ -1,9 +1,15 @@
-// @/app/services/page.tsx
-"use client";
-
 import React from "react";
+import type { Metadata } from "next";
 import { MessageSquare, Globe, GitBranch } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
+
+export const metadata: Metadata = {
+  title: "Our Services",
+  description: "Explore VenzorX's high-tech system engineering offerings: Bespoke Corporate Architectures and High-Tech MVPs & Micro-SaaS development.",
+  alternates: {
+    canonical: "/services"
+  }
+};
 
 export default function StandaloneServicesPage() {
   return (

@@ -1,10 +1,16 @@
-// @/app/about-us/page.tsx
-"use client";
-
 import React from "react";
+import type { Metadata } from "next";
 import { Clock, Slash, Terminal } from "lucide-react";
 import CloudinarySystemBackground from "@/components/ui/cloudinary-background";
 import { GlowCard } from "@/components/ui/spotlight-card";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn how VenzorX executes bespoke corporate architectures and dynamic micro-SaaS applications using handcrafted, high-velocity source code.",
+  alternates: {
+    canonical: "/about-us"
+  }
+};
 
 export default function StandaloneAboutUsPage() {
   return (
